@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PROYECTO_1203819_2530019", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArbolBinario", "ArbolBinario\ArbolBinario.csproj", "{67F0A0D8-69F6-4874-8B27-34E4C9E7A224}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArbolDePrioridad", "ArbolDePrioridad\ArbolDePrioridad.csproj", "{F4096F58-FD7C-4EA7-8CFF-BC9DF66EC8D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArbolDePrioridad", "ArbolDePrioridad\ArbolDePrioridad.csproj", "{F418DB4C-85F3-42DA-9889-FDB8BBAD69C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{67F0A0D8-69F6-4874-8B27-34E4C9E7A224}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67F0A0D8-69F6-4874-8B27-34E4C9E7A224}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67F0A0D8-69F6-4874-8B27-34E4C9E7A224}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4096F58-FD7C-4EA7-8CFF-BC9DF66EC8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4096F58-FD7C-4EA7-8CFF-BC9DF66EC8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4096F58-FD7C-4EA7-8CFF-BC9DF66EC8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4096F58-FD7C-4EA7-8CFF-BC9DF66EC8D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F418DB4C-85F3-42DA-9889-FDB8BBAD69C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F418DB4C-85F3-42DA-9889-FDB8BBAD69C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F418DB4C-85F3-42DA-9889-FDB8BBAD69C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F418DB4C-85F3-42DA-9889-FDB8BBAD69C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

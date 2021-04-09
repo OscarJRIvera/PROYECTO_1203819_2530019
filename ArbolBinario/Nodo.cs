@@ -10,6 +10,7 @@ namespace ArbolBinario
 
         public Nodo<T> Left;
         public Nodo<T> Right;
+      
         public Nodo()
         {
             this.Left = null;

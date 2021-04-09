@@ -5,9 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ArbolDePrioridad\ArbolDePrioridad.csproj" />
-    <ProjectReference Include="..\ArbolBinario\ArbolBinario.csproj" />
-    <ProjectReference Include="..\ArbolDePrioridad\ArbolDePrioridad.csproj" />
+    <ProjectReference Include="..\ArbolBinario\ArbolBinario.csproj" />    <ProjectReference Include="..\ArbolDePrioridad\ArbolDePrioridad.csproj" />
+<ProjectReference Include="..\ArbolDePrioridad\ArbolDePrioridad.csproj" />
   </ItemGroup>
 
 </Project>
