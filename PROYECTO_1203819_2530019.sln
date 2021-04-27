@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArbolBinario", "ArbolBinari
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArbolDePrioridad", "ArbolDePrioridad\ArbolDePrioridad.csproj", "{F418DB4C-85F3-42DA-9889-FDB8BBAD69C5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoubleLinkList01", "DoubleLinkList01\DoubleLinkList01.csproj", "{A004C060-4E84-4B07-849C-FFB56A2FC281}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F418DB4C-85F3-42DA-9889-FDB8BBAD69C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F418DB4C-85F3-42DA-9889-FDB8BBAD69C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F418DB4C-85F3-42DA-9889-FDB8BBAD69C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A004C060-4E84-4B07-849C-FFB56A2FC281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A004C060-4E84-4B07-849C-FFB56A2FC281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A004C060-4E84-4B07-849C-FFB56A2FC281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A004C060-4E84-4B07-849C-FFB56A2FC281}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
