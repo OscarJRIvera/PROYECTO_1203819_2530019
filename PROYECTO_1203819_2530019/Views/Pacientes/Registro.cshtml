@@ -1,0 +1,180 @@
+﻿@model PROYECTO_1203819_2530019.Models.Paciente
+
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<h1 style="color:dodgerblue">Ingreso de datos</h1>
+
+<h4 style="color:dodgerblue">Datos Generales</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Registro">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="input-group mb-3">
+                <label asp-for="Nombre" class="control-label"></label>
+                <div style="text-align :center;">
+                    <input style="position:absolute;top:-15%;left:35%" asp-for="Nombre" type="text" class="form-control" placeholder="Primer nombre" aria-label="x" aria-describedby="basic-addon2" required>
+                    <input style="position:absolute;top:-15%;left:140%" type="text" class="form-control" placeholder="Segundo nombre" aria-label="x" aria-describedby="basic-addon2">
+                    <input style="position:absolute;top:-15%;left:245%" type="text" class="form-control" placeholder="Tercer nombre" aria-label="x" aria-describedby="basic-addon2">
+                </div>
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+
+
+            </div>
+            <div class="input-group mb-3">
+                <label asp-for="Apellido" class="control-label"></label>
+                <div style="text-align :center;">
+                    <input style="position:absolute;top:-15%;left:35%" asp-for="Apellido" type="text" class="form-control" placeholder="Primer apellido" aria-label="x" aria-describedby="basic-addon2" required>
+                    <input style="position:absolute;top:-15%;left:140%" type="text" class="form-control" placeholder="Segundo apellido" aria-label="x" aria-describedby="basic-addon2" required> 
+                </div>
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+
+                <select style="position:absolute;top:15%;left:245%" name="Filter">
+                    class="form-select" aria-label="Default select example">
+                    <option selected>Sexo</option>
+                    <option value="Mujer">Mujer</option>
+                    <option value="Hombre">Hombre</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <label asp-for="DPI" class="control-label"></label>
+                <div style="text-align :center;">
+                    <input style="position:absolute;top:-15%;left:35%" asp-for="DPI" class="form-control" required />
+                    <span asp-validation-for="DPI" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Departamento" class="control-label"></label>
+                <div style="text-align :center;">
+                    <select style="position:absolute;top:25%;left:35%" asp-for="Departamento" class="form-control" required>
+                        <option value="" selected disabled hidden>Seleccione</option>
+                        <option value="Guatemala">Guatemala</option>
+                        <option value="Alta Verapaz">Alta Verapaz</option>
+                        <option value="Baja Verapaz">Baja Verapaz</option>
+                        <option value="Chimaltenango">Chimaltenango</option>
+                        <option value="Chiquimula">Chiquimula</option>
+                        <option value="El Progreso">El progreso</option>
+                        <option value="Escuintla">Escuintla</option>
+                        <option value="Huehuetenango">Huehuetenango</option>
+                        <option value="Izabal">Izabal</option>
+                        <option value="Jalapa">Jalapa</option>
+                        <option value="Jutiapa">Jutiapa</option>
+                        <option value="Petén">Petén</option>
+                        <option value="Quetzaltenango">Quetzaltenango</option>
+                        <option value="Quiché">Quiché</option>
+                        <option value="Retalhuleu">Retalhuleu</option>
+                        <option value="Sacatepequez">Sacatepequez</option>
+                        <option value="San Marcos">San Marcos</option>
+                        <option value="Santa Rosa">Santa Rosa</option>
+                        <option value="Sololá">Sololá</option>
+                        <option value="Suchitepequez">Suchitepequez</option>
+                        <option value="Totonicapán">Totonicapán</option>
+                        <option value="Zacapa">Zacapa</option>
+
+                    </select>
+                </div>
+                <label style="position:absolute;top:22%;left:140%" asp-for="Municipio" class="control-label"></label>
+                <div style="text-align :center;">
+                    <input style="position:absolute;top:22%;left:160%" asp-for="Municipio" class="form-control" required/>
+                    <span asp-validation-for="Municipio" class="text-danger"></span>
+                </div>
+
+
+            </div>
+
+            <div class="input-group mb-3">
+                <label asp-for="Edad" class="control-label"></label>
+                <div style="text-align :center;">
+                    <input style="position:absolute;top:-15%;left:35%" asp-for="Edad" class="form-control" required/>
+                    <span asp-validation-for="Edad" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+
+                <label asp-for="Areadetrabajo" class="control-label">Area de trabajo</label>
+
+                <div style="text-align :center;">
+                    <select style="position:absolute;top:0%;left:35.5%" asp-for="Areadetrabajo" class="form-control" required>
+                        class="form-select" aria-label="Default select example">
+                        <option value="" selected disabled hidden>Seleccione</option>
+                        <option value="1">Trabajador de primera línea(contacto con pacientes COVID-19)</option>
+                        <option value="3">Cuerpos de socorro(bomberos o paramédicos)</option>
+                        <option value="5">Labora en instituciones de adultos mayores</option>
+                        <option value="6">Sector de salud administrativoo</option>
+                        <option value="7">Sector seguridad nacional(PNC,PMT,militareas y personal del sistema penitenciario) </option>
+                        <option value="10">Sector justicia</option>
+                        <option value="8">Sector de servicios esenciales (Electricidad,agua, recolección de basura) </option>
+                        <option value="4">Funeraria</option>
+                        <option value="9">Sector educativo</option>
+                        <option value="2">Comadrona, Promotor voluntario o terapeuta maya</option>
+                        <option value="11">-Otro,estudia o no trabaja</option>
+                        
+                    </select>
+                </div>
+
+
+            </div>
+            <div class="input-group mb-3">
+                <label asp-for="Salud" class="control-label">Elija si tiene una o varios de las siguientes enfermedades</label>
+
+                <div style="text-align :center;">
+                    <select style="position:absolute;top:0%;left:110%" asp-for="Salud" class="form-control" required>
+                        class="form-select" aria-label="Default select example">
+                        <option value="" selected disabled hidden>Seleccione</option>
+                        <option value="1">Hipertensión arterial que requiere medicamento</option>
+                        <option value="2">Diabetes Mellitus</option>
+                        <option value="3">Enfermedad pulmonar crónica </option>
+                        <option value="4">Enfermedad renal crónica</option>
+                        <option value="5">Enfermedades cardiovasculares </option>
+                        <option value="6">Enfermedades cerebrovasculares</option>
+                        <option value="7">Inmunosupresión (VIH, cáncer, uso de inmunosupresores)</option>
+                        <option value="8">Obesidad</option>
+                        <option value="10">Niguna</option>
+                        <option value="11">Varios</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="input-group mb-3">
+
+                <label asp-for="Est" class="control-label">Es estudiante de ciencias de salud y realiza prácticas?</label>
+
+                <div style="text-align :center;">
+                    <select style="position:absolute;top:0%;left:110%" asp-for="Est" class="form-control" required>
+                        class="form-select" aria-label="Default select example">
+                        <option value="" selected disabled hidden>Seleccione</option>
+                        <option value="1">Si</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+
+            </div>
+            
+            <div class="input-group mb-3">
+                <label asp-for="Asilo" class="control-label">Su lugar de vivienda es una institucion de adultos mayores?</label>
+
+                <div style="text-align :center;">
+                    <select style="position:absolute;top:0%;left:110%" asp-for="Asilo" class="form-control" required>
+                        class="form-select" aria-label="Default select example">
+                        <option value="" selected disabled hidden>Seleccione</option>
+                        <option value="1">Si</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ingresar Datos" class="btn btn-outline-info" />
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
