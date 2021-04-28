@@ -1,0 +1,75 @@
+﻿@model IEnumerable<PROYECTO_1203819_2530019.Models.PacienteView>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<p>
+    Selecione la busqueda que desea
+</p>
+<form asp-controller="Pacientes" asp-action="Search">
+
+    <select name="Filter">
+        <option value="" selected disabled hidden>Seleccione</option>
+        <option value="Nombre">Nombre</option>
+        <option value="Apellido">Apellido</option>
+        <option value="DPI">DPI/Partida de nacimiento</option>
+    </select>
+    <div class="input-group mb-3">
+        <input name="Param" type="text" class="form-control" placeholder="Escribir" aria-label="x" aria-describedby="basic-addon2">
+        <input type="submit" value="Buscar" class="btn btn-outline-dark">
+    </div>
+</form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DPI)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Departamento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Municipio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Edad)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DPI)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Departamento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Municipio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Edad)
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
