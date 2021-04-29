@@ -11,10 +11,17 @@ namespace TablaHash
         int largoTabla;
         int funcionHash(K llave)
         {
+<<<<<<< Updated upstream
             int temp2 = Convert.ToInt32(llave);
             string temp = Convert.ToString(llave);
             int size = temp.Length;
             int[] bytes = new int[size];
+=======
+            Int64 temp2 = Convert.ToInt64(llave);
+            string temp = Convert.ToString(llave);
+            int size = temp.Length;
+            Int64[] bytes = new Int64[size];
+>>>>>>> Stashed changes
             for (int index = size - 1; index >= 0; index--)
             {
                 bytes[index] = temp2 % 10;
@@ -49,7 +56,11 @@ namespace TablaHash
             }
         }
         internal Comparador<V> comparador;
+<<<<<<< Updated upstream
         public delegate int Comparador<V>(V a, int b);
+=======
+        public delegate int Comparador<V>(V a, Int64 b);
+>>>>>>> Stashed changes
 
         public void Add(K llave, V valor)
         {
@@ -61,7 +72,11 @@ namespace TablaHash
         {
             var hash = funcionHash(llave);
             var llaveValor = Diccionario.Find(p => p.Llave.Equals(hash));
+<<<<<<< Updated upstream
             int posicion = llaveValor.Valor.Find2(m => comparador(m, Convert.ToInt32(llave)) == 0);
+=======
+            int posicion = llaveValor.Valor.Find2(m => comparador(m,Convert.ToInt64(llave)) == 0);
+>>>>>>> Stashed changes
             llaveValor.Valor.RemoveAt(posicion);
 
         }
@@ -69,7 +84,11 @@ namespace TablaHash
         {
             var hash = funcionHash(llave);
             var llaveValor = Diccionario.Find(p => p.Llave.Equals(hash));
+<<<<<<< Updated upstream
             var I = llaveValor.Valor.Find(m => comparador(m, Convert.ToInt32(llave)) == 0);
+=======
+            var I = llaveValor.Valor.Find(m => comparador(m, Convert.ToInt64(llave)) == 0);
+>>>>>>> Stashed changes
             return I;
         }
         public V Remove2(int posi, int posi2)

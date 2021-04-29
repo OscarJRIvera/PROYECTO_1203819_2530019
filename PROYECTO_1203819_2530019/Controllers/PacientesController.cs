@@ -22,118 +22,50 @@ namespace PROYECTO_1203819_2530019.Controllers
         {
             _context = context;
         }
-
-        // GET: Pacientes
         public IActionResult Index()
         {
             return View(F.ViewPaciente);
         }
 
-        // GET: Pacientes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var paciente = await _context.Paciente
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (paciente == null)
-            {
-                return NotFound();
-            }
-
-            return View(paciente);
-        }
-
-        // GET: Pacientes/Create
-        public IActionResult Create()
+        public delegate int PacienteComp(LlaveArbolNombre a, string b);
+        public delegate int PacienteComp2(LlaveArbolApellido a, string b);
+        public delegate int PacienteComp3(LlaveArbolNumeroDR a, string b);
+        public IActionResult Registro(int? Id)
         {
             return View();
         }
-
-        // POST: Pacientes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,DPI,Departamente,Municipio,Edad")] Paciente paciente)
+        public IActionResult Registro(int id, [Bind("Nombre,Apellido,DPI,Departamento,Municipio,Edad,Areadetrabajo,Salud,Est,Asilo")] Paciente DatosP, [Bind("Nombre,Apellido,DPI,Departamento,Municipio,Edad")] PacienteView Pv1)
         {
-            if (ModelState.IsValid)
+            var TempNombre = new LlaveArbolNombre();
+            var TempDR = new LlaveArbolNumeroDR();
+            var TempApellido = new LlaveArbolApellido();
+            //////////////////////////////////////////////////////////////////////////////////////
+            TempDR.NumeroDR = DatosP.DPI;
+            TempDR = F.Arbol_NumeroDR.Find(TempDR);
+            if (TempDR == null)
             {
-                _context.Add(paciente);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(paciente);
-        }
+                TempNombre = new LlaveArbolNombre();
+                TempDR = new LlaveArbolNumeroDR();
+                TempApellido = new LlaveArbolApellido();
 
-        // GET: Pacientes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+                TempDR.CodigoHash = DatosP.DPI;
+                TempDR.NumeroDR = DatosP.DPI;
+                F.Arbol_NumeroDR.Add(TempDR);
 
-            var paciente = await _context.Paciente.FindAsync(id);
-            if (paciente == null)
-            {
-                return NotFound();
-            }
-            return View(paciente);
-        }
+                TempNombre.CodigoHash = DatosP.DPI;
+                TempNombre.Nombre = DatosP.Nombre;
+                F.Arbol_Nombre.Add(TempNombre);
 
-        // POST: Pacientes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,DPI,Departamente,Municipio,Edad")] Paciente paciente)
-        {
-            if (id != paciente.Id)
-            {
-                return NotFound();
+                TempApellido.CodigoHash = DatosP.DPI;
+                TempApellido.Apellido = DatosP.Apellido;
+                F.Arbol_Apellido.Add(TempApellido);
             }
-
-            if (ModelState.IsValid)
+            else
             {
-                try
-                {
-                    _context.Update(paciente);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PacienteExists(paciente.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("ErrorDPI");
             }
-            return View(paciente);
-        }
-
-        // GET: Pacientes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var paciente = await _context.Paciente
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (paciente == null)
-            {
-                return NotFound();
-            }
+<<<<<<< Updated upstream
 
             return View(paciente);
         }
@@ -191,9 +123,11 @@ namespace PROYECTO_1203819_2530019.Controllers
             {
                 return RedirectToAction("ErrorDPI");
             }
+=======
+>>>>>>> Stashed changes
             bool Comprobacion = false;
             LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
-            F.ViewPaciente.Add(Pv1);
+            Temp.CodigoHash = DatosP.DPI;
             if (DatosP.Areadetrabajo > 2) {
                 if (DatosP.Est == 1) {
                     Temp.Prioridad = 1.2;
@@ -255,10 +189,40 @@ namespace PROYECTO_1203819_2530019.Controllers
                         } break;
                 }
             }
-            
             F.Arbol_Prioridad.add(Temp);
             F.Tabla_Hash.Add(Convert.ToString(DatosP.DPI), DatosP);
+<<<<<<< Updated upstream
             
+=======
+            ///////////////////////////////////
+            ArbolDePrioridad<LlaveArbolPrioridad> Temparbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            Temparbol = F.Arbol_Prioridad.Clone();
+            LlaveArbolPrioridad Tempprioridad;
+            F.ViewPaciente = new DoubleLinkedList<PacienteView>();
+            do
+            {
+                Tempprioridad = new LlaveArbolPrioridad();
+                if (!Temparbol.isempty())
+                {
+                    Tempprioridad = Temparbol.Remove();
+                    if (Tempprioridad != null)
+                    {
+                        Paciente TempPaciente = new Paciente();
+                        TempPaciente = F.Tabla_Hash.Find(Convert.ToString(Tempprioridad.CodigoHash));
+                        PacienteView TempPView = new PacienteView();
+                        TempPView.Nombre = TempPaciente.Nombre;
+                        TempPView.Apellido = TempPaciente.Apellido;
+                        TempPView.DPI = TempPaciente.DPI;
+                        TempPView.Departamento = TempPaciente.Departamento;
+                        TempPView.Municipio = TempPaciente.Municipio;
+                        TempPView.Edad = TempPaciente.Edad;
+                        TempPView.Prioridad = Tempprioridad.Prioridad;
+                        F.ViewPaciente.Add(TempPView);
+                    }
+                }
+            } while (Tempprioridad.CodigoHash !=0);
+
+>>>>>>> Stashed changes
             return RedirectToAction("Index", "Pacientes");
         }
         public ActionResult Search(string Filter, string Param)
@@ -267,6 +231,7 @@ namespace PROYECTO_1203819_2530019.Controllers
             LlaveArbolNombre ANombre;
             LlaveArbolApellido AApellido;
             LlaveArbolNumeroDR ANumero;
+<<<<<<< Updated upstream
            switch (Filter)
            {
              case "Nombre":
@@ -279,11 +244,70 @@ namespace PROYECTO_1203819_2530019.Controllers
                     return View();
              case "DPI":
                     DoubleLinkedList<Paciente> TempVista = new DoubleLinkedList<Paciente>();
+=======
+            DoubleLinkedList<Paciente> TempVista = new DoubleLinkedList<Paciente>();
+            switch (Filter)
+           {
+             case "Nombre":
+                    AVL<LlaveArbolNombre> Temparbol3 = new AVL<LlaveArbolNombre>(LlaveArbolNombre.Compare_Llave_Arbol, LlaveArbolNombre.Compare_Llave_Arbol2);
+                    Temparbol3 = F.Arbol_Nombre.Clone();
+                    try
+                    {
+
+                        ANombre = new LlaveArbolNombre { Nombre = Param };
+                        do
+                        {
+                            ANombre = Temparbol3.Find2(ANombre);
+                            if (ANombre != null)
+                            {
+                                Temparbol3.RemoveAt(ANombre);
+                                Paciente TempPaciente = new Paciente();
+                                TempPaciente = F.Tabla_Hash.Find(Convert.ToString(ANombre.CodigoHash));
+                                TempVista.Add(TempPaciente);
+                            }
+                        } while (ANombre != null);
+                        return View(TempVista);
+                    }
+                    catch
+                    {
+                        return RedirectToAction("ErrorBuscar");
+                    }
+                case "Apellido":
+                    AVL<LlaveArbolApellido> Temparbol2 = new AVL<LlaveArbolApellido>(LlaveArbolApellido.Compare_Llave_Arbol, LlaveArbolApellido.Compare_Llave_Arbol2);
+                    Temparbol2 = F.Arbol_Apellido.Clone();
+                    try
+                    {
+                        
+                        AApellido = new LlaveArbolApellido { Apellido = Param };
+                        do
+                        {
+                            AApellido = Temparbol2.Find2(AApellido);
+                            if (AApellido != null)
+                            {
+                                Temparbol2.RemoveAt(AApellido);
+                                Paciente TempPaciente = new Paciente();
+                                TempPaciente = F.Tabla_Hash.Find(Convert.ToString(AApellido.CodigoHash));
+                                TempVista.Add(TempPaciente);
+                            }
+                        } while (AApellido != null);
+                        return View(TempVista);
+                    }
+                    catch 
+                    {
+                        return RedirectToAction("ErrorBuscar");
+                    }
+             case "DPI":
+                    
+>>>>>>> Stashed changes
                     AVL<LlaveArbolNumeroDR> Temparbol = new AVL<LlaveArbolNumeroDR>(LlaveArbolNumeroDR.Compare_Llave_Arbol, LlaveArbolNumeroDR.Compare_Llave_Arbol2);
                     Temparbol = F.Arbol_NumeroDR.Clone();
                     try
                     {
+<<<<<<< Updated upstream
                         int Param2 = Convert.ToInt32(Param);
+=======
+                        Int64 Param2 = Convert.ToInt64(Param);
+>>>>>>> Stashed changes
                         ANumero = new LlaveArbolNumeroDR { NumeroDR = Param2 };
                         do
                         {
@@ -305,6 +329,7 @@ namespace PROYECTO_1203819_2530019.Controllers
                    
                 default:
                     return RedirectToAction("Index");
+<<<<<<< Updated upstream
            }
             
            
@@ -315,7 +340,33 @@ namespace PROYECTO_1203819_2530019.Controllers
         }
         public IActionResult ErrorDPI()
         {
+=======
+            }
+        }
+        public IActionResult ErrorBuscar()
+        {
+>>>>>>> Stashed changes
             return View();
+        }
+        public IActionResult ErrorDPI()
+        {
+            return View();
+        }
+        public IActionResult Vacunacion()
+        {
+            
+            return View();
+        }
+        public bool CalcSiLlego()
+        {
+            Random Rand = new Random();
+            int numero = Rand.Next(1, 4);
+            if (numero == 2)
+            {
+                return false;
+            }
+            return true;
+
         }
     }
 }
