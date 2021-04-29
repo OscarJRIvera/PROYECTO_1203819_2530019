@@ -29,17 +29,15 @@ namespace PROYECTO_1203819_2530019.Models
         public int Est { get; set; }
         [Required]
         public int Asilo { get; set; }
+        [Required]
+        public DateTime Fecha { get; set; }
 
         public static int Compare_Nombre(Paciente x, string y)
         {
             int r = x.Nombre.CompareTo(y);
             return r;
         }
-<<<<<<< Updated upstream
-        public static int Compare_DPI(Paciente x, int y)
-=======
         public static int Compare_DPI(Paciente x, Int64 y)
->>>>>>> Stashed changes
         {
             int r = x.DPI.CompareTo(y);
             return r;

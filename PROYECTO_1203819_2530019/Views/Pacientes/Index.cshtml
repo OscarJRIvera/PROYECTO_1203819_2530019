@@ -23,7 +23,7 @@
     </div>
 </form>
 <a style="color: black" asp-action="Registro" class="btn btn-primary  btn-block" role="button">Registrar otro cliente</a>
-<a style="color: black" asp-action="Registro" class="btn btn-secondary btn-block" role="button">Vacunacion</a>
+<a style="color: black" asp-action="Vacunacion" class="btn btn-secondary btn-block" role="button">Vacunacion</a>
     <table class="table">
         <thead>
             <tr>
@@ -57,30 +57,6 @@
         <tbody>
             @foreach (var item in Model)
             {
-<<<<<<< Updated upstream
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Apellido)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DPI)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Departamento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Municipio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Edad)
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-=======
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
@@ -107,7 +83,6 @@
                     @Html.DisplayFor(modelItem => item.Fecha)
                 </td>
             </tr>
->>>>>>> Stashed changes
             }
         </tbody>
     </table>

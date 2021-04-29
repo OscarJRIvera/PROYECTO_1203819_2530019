@@ -26,7 +26,6 @@ namespace PROYECTO_1203819_2530019.Controllers
         {
             return View(F.ViewPaciente);
         }
-
         public delegate int PacienteComp(LlaveArbolNombre a, string b);
         public delegate int PacienteComp2(LlaveArbolApellido a, string b);
         public delegate int PacienteComp3(LlaveArbolNumeroDR a, string b);
@@ -42,6 +41,7 @@ namespace PROYECTO_1203819_2530019.Controllers
             var TempApellido = new LlaveArbolApellido();
             //////////////////////////////////////////////////////////////////////////////////////
             TempDR.NumeroDR = DatosP.DPI;
+            TempDR.CodigoHash = DatosP.DPI;
             TempDR = F.Arbol_NumeroDR.Find(TempDR);
             if (TempDR == null)
             {
@@ -65,71 +65,13 @@ namespace PROYECTO_1203819_2530019.Controllers
             {
                 return RedirectToAction("ErrorDPI");
             }
-<<<<<<< Updated upstream
-
-            return View(paciente);
-        }
-
-        // POST: Pacientes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var paciente = await _context.Paciente.FindAsync(id);
-            _context.Paciente.Remove(paciente);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool PacienteExists(int id)
-        {
-            return _context.Paciente.Any(e => e.Id == id);
-        }
-        public delegate int PacienteComp(LlaveArbolNombre a, string b);
-        public delegate int PacienteComp2(LlaveArbolApellido a, string b);
-        public delegate int PacienteComp3(LlaveArbolNumeroDR a, string b);
-        public IActionResult Registro(int? Id)
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Registro(int id, [Bind("Nombre,Apellido,DPI,Departamento,Municipio,Edad,Areadetrabajo,Salud,Est,Asilo")] Paciente DatosP, [Bind("Nombre,Apellido,DPI,Departamento,Municipio,Edad")] PacienteView Pv1)
-        {
-            var TempNombre = new LlaveArbolNombre();
-            var TempDR = new LlaveArbolNumeroDR();
-            var TempApellido = new LlaveArbolApellido();
-            //////////////////////////////////////////////////////////////////////////////////////
-            TempDR.NumeroDR = DatosP.DPI;
-            TempDR = F.Arbol_NumeroDR.Find(TempDR);
-            if (TempDR == null)
-            {
-                TempNombre = new LlaveArbolNombre();
-                TempDR = new LlaveArbolNumeroDR();
-                TempApellido = new LlaveArbolApellido();
-
-                TempDR.CodigoHash = DatosP.DPI;
-                TempDR.NumeroDR = DatosP.DPI;
-                F.Arbol_NumeroDR.Add(TempDR);
-
-                TempNombre.CodigoHash = DatosP.DPI;
-                TempNombre.Nombre = DatosP.Nombre;
-                F.Arbol_Nombre.Add(TempNombre);
-
-                TempApellido.CodigoHash = DatosP.DPI;
-                TempApellido.Apellido = DatosP.Apellido;
-                F.Arbol_Apellido.Add(TempApellido);
-            }
-            else
-            {
-                return RedirectToAction("ErrorDPI");
-            }
-=======
->>>>>>> Stashed changes
             bool Comprobacion = false;
             LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
             Temp.CodigoHash = DatosP.DPI;
-            if (DatosP.Areadetrabajo > 2) {
-                if (DatosP.Est == 1) {
+            if (DatosP.Areadetrabajo > 2)
+            {
+                if (DatosP.Est == 1)
+                {
                     Temp.Prioridad = 1.2;
                     Comprobacion = true;
                 }
@@ -175,25 +117,27 @@ namespace PROYECTO_1203819_2530019.Controllers
                     case 10:
                         Temp.Prioridad = 3.3; break;
                     case 11:
-                        if (DatosP.Edad >= 70 ) {
+                        if (DatosP.Edad >= 70)
+                        {
                             Temp.Prioridad = 2.0;
                         }
-                        else if (DatosP.Edad >= 50){
+                        else if (DatosP.Edad >= 50)
+                        {
                             Temp.Prioridad = 2.1;
                         }
-                        else if (DatosP.Edad >= 40){
+                        else if (DatosP.Edad >= 40)
+                        {
                             Temp.Prioridad = 4.0;
                         }
-                        else { 
+                        else
+                        {
                             Temp.Prioridad = 4.1;
-                        } break;
+                        }
+                        break;
                 }
             }
             F.Arbol_Prioridad.add(Temp);
             F.Tabla_Hash.Add(Convert.ToString(DatosP.DPI), DatosP);
-<<<<<<< Updated upstream
-            
-=======
             ///////////////////////////////////
             ArbolDePrioridad<LlaveArbolPrioridad> Temparbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
             Temparbol = F.Arbol_Prioridad.Clone();
@@ -220,35 +164,18 @@ namespace PROYECTO_1203819_2530019.Controllers
                         F.ViewPaciente.Add(TempPView);
                     }
                 }
-            } while (Tempprioridad.CodigoHash !=0);
-
->>>>>>> Stashed changes
+            } while (Tempprioridad.CodigoHash != 0);
             return RedirectToAction("Index", "Pacientes");
         }
         public ActionResult Search(string Filter, string Param)
         {
-            
             LlaveArbolNombre ANombre;
             LlaveArbolApellido AApellido;
             LlaveArbolNumeroDR ANumero;
-<<<<<<< Updated upstream
-           switch (Filter)
-           {
-             case "Nombre":
-                    ANombre = new LlaveArbolNombre { Nombre = Param };
-                    ANombre = F.Arbol_Nombre.Find(ANombre);
-                    return View();
-             case "Apellido":
-                    AApellido = new LlaveArbolApellido { Apellido = Param };
-                    AApellido = F.Arbol_Apellido.Find(AApellido);
-                    return View();
-             case "DPI":
-                    DoubleLinkedList<Paciente> TempVista = new DoubleLinkedList<Paciente>();
-=======
             DoubleLinkedList<Paciente> TempVista = new DoubleLinkedList<Paciente>();
             switch (Filter)
-           {
-             case "Nombre":
+            {
+                case "Nombre":
                     AVL<LlaveArbolNombre> Temparbol3 = new AVL<LlaveArbolNombre>(LlaveArbolNombre.Compare_Llave_Arbol, LlaveArbolNombre.Compare_Llave_Arbol2);
                     Temparbol3 = F.Arbol_Nombre.Clone();
                     try
@@ -277,7 +204,7 @@ namespace PROYECTO_1203819_2530019.Controllers
                     Temparbol2 = F.Arbol_Apellido.Clone();
                     try
                     {
-                        
+
                         AApellido = new LlaveArbolApellido { Apellido = Param };
                         do
                         {
@@ -292,22 +219,18 @@ namespace PROYECTO_1203819_2530019.Controllers
                         } while (AApellido != null);
                         return View(TempVista);
                     }
-                    catch 
+                    catch
                     {
                         return RedirectToAction("ErrorBuscar");
                     }
-             case "DPI":
-                    
->>>>>>> Stashed changes
+                case "DPI":
                     AVL<LlaveArbolNumeroDR> Temparbol = new AVL<LlaveArbolNumeroDR>(LlaveArbolNumeroDR.Compare_Llave_Arbol, LlaveArbolNumeroDR.Compare_Llave_Arbol2);
                     Temparbol = F.Arbol_NumeroDR.Clone();
                     try
                     {
-<<<<<<< Updated upstream
-                        int Param2 = Convert.ToInt32(Param);
-=======
+
+
                         Int64 Param2 = Convert.ToInt64(Param);
->>>>>>> Stashed changes
                         ANumero = new LlaveArbolNumeroDR { NumeroDR = Param2 };
                         do
                         {
@@ -319,33 +242,20 @@ namespace PROYECTO_1203819_2530019.Controllers
                                 TempPaciente = F.Tabla_Hash.Find(Convert.ToString(ANumero.CodigoHash));
                                 TempVista.Add(TempPaciente);
                             }
-                        } while (ANumero != null );
+                        } while (ANumero != null);
                         return View(TempVista);
                     }
                     catch
                     {
                         return RedirectToAction("ErrorBuscar");
                     }
-                   
+
                 default:
                     return RedirectToAction("Index");
-<<<<<<< Updated upstream
-           }
-            
-           
-        }
-        public IActionResult ErrorBuscar()
-        {
-            return View();
-        }
-        public IActionResult ErrorDPI()
-        {
-=======
             }
         }
         public IActionResult ErrorBuscar()
         {
->>>>>>> Stashed changes
             return View();
         }
         public IActionResult ErrorDPI()
@@ -354,8 +264,35 @@ namespace PROYECTO_1203819_2530019.Controllers
         }
         public IActionResult Vacunacion()
         {
-            
-            return View();
+            while (!F.Arbol_Prioridad.isempty())
+            {
+                LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
+                Temp = F.Arbol_Prioridad.Remove();
+                F.ListaVacunar.add(Temp);
+            }
+
+            return RedirectToAction("Vacunacion2");
+        }
+        public IActionResult Vacunacion2()
+        {
+            DoubleLinkedList<Paciente> TempView = new DoubleLinkedList<Paciente>();
+            ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            TempArbol = F.ListaVacunar.Clone();
+            DateTime TempFecha = DateTime.Now;
+            DateTime TempFecha2 = DateTime.Today;
+            TempFecha2 = TempFecha2.AddDays(7);
+            TempFecha2 = TempFecha2.AddHours(8);
+            do
+            {
+                LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
+                Temp = TempArbol.Remove();
+                Paciente ViewVacunar = new Paciente();
+                ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
+                ViewVacunar.Fecha = TempFecha2;
+                TempFecha2 = TempFecha2.AddMinutes(20);
+                TempView.Add(ViewVacunar);
+            } while (!TempArbol.isempty());
+            return View(TempView);
         }
         public bool CalcSiLlego()
         {
@@ -368,5 +305,50 @@ namespace PROYECTO_1203819_2530019.Controllers
             return true;
 
         }
+        public void restablecerfechas()
+        {
+
+        }
+        public IActionResult Realizarinjeccion()
+        {
+            ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            TempArbol = F.ListaVacunar.Clone();
+            Vacunados Vacunar = new Vacunados();
+
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (!TempArbol.isempty())
+                {
+                    LlaveArbolPrioridad Templlave = new LlaveArbolPrioridad();
+                    Templlave = TempArbol.Remove();
+                    Paciente ViewVacunar = new Paciente();
+                    ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Templlave.CodigoHash));
+                    switch (i)
+                    {
+                        case 0:
+                            Vacunar.Nombre = ViewVacunar.Nombre;
+                            Vacunar.Apellido = ViewVacunar.Apellido;
+                            Vacunar.DPI = ViewVacunar.DPI;
+                            Vacunar.Fecha = ViewVacunar.Fecha;
+                            break;
+                        case 1:
+                            Vacunar.Nombre2 = ViewVacunar.Nombre;
+                            Vacunar.Apellido2 = ViewVacunar.Apellido;
+                            Vacunar.DPI2 = ViewVacunar.DPI;
+                            Vacunar.Fecha2 = ViewVacunar.Fecha;
+                            break;
+                        case 2:
+                            Vacunar.Nombre3 = ViewVacunar.Nombre;
+                            Vacunar.Apellido3 = ViewVacunar.Apellido;
+                            Vacunar.DPI3 = ViewVacunar.DPI;
+                            Vacunar.Fecha3 = ViewVacunar.Fecha;
+                            break;
+                    }
+                }
+            }
+            return View();
+        }
     }
 }
+

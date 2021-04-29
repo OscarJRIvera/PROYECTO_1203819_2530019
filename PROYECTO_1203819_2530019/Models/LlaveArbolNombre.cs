@@ -8,11 +8,7 @@ namespace PROYECTO_1203819_2530019.Models
     public class LlaveArbolNombre
     {
         public string Nombre { get; set; }
-<<<<<<< Updated upstream
-        public int CodigoHash { get; set; }
-=======
-        public Int64 CodigoHash { get; set; }
->>>>>>> Stashed changes
+        public Int64 CodigoHash { get; set; } 
         public static int Compare_Llave_Arbol(LlaveArbolNombre x, LlaveArbolNombre y) 
         {
             int r = x.CodigoHash.CompareTo(y.CodigoHash);
