@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PROYECTO_1203819_2530019.Models.PacienteView>
+@model IEnumerable<PROYECTO_1203819_2530019.Models.PacienteView>
 
 @{
     ViewData["Title"] = "Index";
@@ -57,30 +57,6 @@
         <tbody>
             @foreach (var item in Model)
             {
-<<<<<<< Updated upstream
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Apellido)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DPI)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Departamento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Municipio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Edad)
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-=======
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
@@ -107,7 +83,6 @@
                     @Html.DisplayFor(modelItem => item.Fecha)
                 </td>
             </tr>
->>>>>>> Stashed changes
             }
         </tbody>
     </table>
