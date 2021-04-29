@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,11 +35,7 @@ namespace PROYECTO_1203819_2530019.Models
             int r = x.Nombre.CompareTo(y);
             return r;
         }
-<<<<<<< Updated upstream
-        public static int Compare_DPI(Paciente x, int y)
-=======
         public static int Compare_DPI(Paciente x, Int64 y)
->>>>>>> Stashed changes
         {
             int r = x.DPI.CompareTo(y);
             return r;
@@ -47,3 +43,4 @@ namespace PROYECTO_1203819_2530019.Models
 
     }
 }
+
