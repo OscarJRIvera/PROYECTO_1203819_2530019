@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -316,7 +316,7 @@ namespace PROYECTO_1203819_2530019.Controllers
             Vacunados Vacunar = new Vacunados();
 
 
-            for (int i = 0; i < 3; i++)
+            for(int i = 0; i < 3; i++)
             {
                 if (!TempArbol.isempty())
                 {
