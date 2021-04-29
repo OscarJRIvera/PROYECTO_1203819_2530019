@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +29,8 @@ namespace PROYECTO_1203819_2530019.Models
         public int Est { get; set; }
         [Required]
         public int Asilo { get; set; }
+        [Required]
+        public DateTime Fecha { get; set; }
 
         public static int Compare_Nombre(Paciente x, string y)
         {
@@ -43,4 +45,3 @@ namespace PROYECTO_1203819_2530019.Models
 
     }
 }
-

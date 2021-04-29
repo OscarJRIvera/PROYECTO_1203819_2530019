@@ -1,4 +1,4 @@
-@model IEnumerable<PROYECTO_1203819_2530019.Models.PacienteView>
+﻿@model IEnumerable<PROYECTO_1203819_2530019.Models.PacienteView>
 
 @{
     ViewData["Title"] = "Index";
@@ -23,7 +23,7 @@
     </div>
 </form>
 <a style="color: black" asp-action="Registro" class="btn btn-primary  btn-block" role="button">Registrar otro cliente</a>
-<a style="color: black" asp-action="Registro" class="btn btn-secondary btn-block" role="button">Vacunacion</a>
+<a style="color: black" asp-action="Vacunacion" class="btn btn-secondary btn-block" role="button">Terminar Registro</a>
     <table class="table">
         <thead>
             <tr>
@@ -48,16 +48,13 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Prioridad)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Fecha)
-                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
-            {
-            <tr>
+             {
+              <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
@@ -79,10 +76,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Prioridad)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-            </tr>
-            }
+              </tr>
+             }
         </tbody>
     </table>
