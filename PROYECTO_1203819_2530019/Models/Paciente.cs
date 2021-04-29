@@ -14,7 +14,7 @@ namespace PROYECTO_1203819_2530019.Models
         [Required]
         public string Apellido { get; set; }
         [Required]
-        public int DPI { get; set; }
+        public Int64 DPI { get; set; }
         [Required]
         public string Departamento { get; set; }
         [Required]
@@ -35,7 +35,11 @@ namespace PROYECTO_1203819_2530019.Models
             int r = x.Nombre.CompareTo(y);
             return r;
         }
+<<<<<<< Updated upstream
         public static int Compare_DPI(Paciente x, int y)
+=======
+        public static int Compare_DPI(Paciente x, Int64 y)
+>>>>>>> Stashed changes
         {
             int r = x.DPI.CompareTo(y);
             return r;

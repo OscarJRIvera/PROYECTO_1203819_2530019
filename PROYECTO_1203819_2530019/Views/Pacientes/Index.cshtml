@@ -8,6 +8,7 @@
 <p>
     Selecione la busqueda que desea
 </p>
+
 <form asp-controller="Pacientes" asp-action="Search">
 
     <select name="Filter">
@@ -21,6 +22,8 @@
         <input type="submit" value="Buscar" class="btn btn-outline-dark">
     </div>
 </form>
+<a style="color: black" asp-action="Registro" class="btn btn-primary  btn-block" role="button">Registrar otro cliente</a>
+<a style="color: black" asp-action="Registro" class="btn btn-secondary btn-block" role="button">Vacunacion</a>
     <table class="table">
         <thead>
             <tr>
@@ -42,12 +45,19 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Edad)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Prioridad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
+<<<<<<< Updated upstream
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Nombre)
@@ -70,6 +80,34 @@
                     <td>
                     </td>
                 </tr>
+=======
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DPI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Municipio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Edad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prioridad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+            </tr>
+>>>>>>> Stashed changes
             }
         </tbody>
     </table>
