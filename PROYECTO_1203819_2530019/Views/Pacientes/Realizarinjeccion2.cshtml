@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<PROYECTO_1203819_2530019.Models.Paciente>
 
 @{
-    ViewData["Title"] = "Vacunacion2";
+    ViewData["Title"] = "Revision";
 }
 
-<h1>Vacunacion</h1>
+
 
 <p>
-    <a style="color: black" asp-action="Realizarinjeccion" class="btn btn-primary  btn-block" role="button">Realizar Vacunacion</a>
-    <a style="color: black" asp-action="RegesoRegistrar" class="btn btn-primary  btn-block" role="button">Continuar Registro de pacientes</a>
+    <a style="color: black" asp-action="Vacunacion2" class="btn btn-primary  btn-block" role="button">Finalizar Revision</a>
 </p>
 <table class="table">
     <thead>
@@ -33,6 +32,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paciente_Llego)
             </th>
             <th></th>
         </tr>
@@ -61,6 +63,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Paciente_Llego)
                 </td>
             </tr>
         }

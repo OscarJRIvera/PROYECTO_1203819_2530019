@@ -31,6 +31,13 @@ namespace PROYECTO_1203819_2530019.Controllers
         public delegate int PacienteComp3(LlaveArbolNumeroDR a, string b);
         public IActionResult Registro(int? Id)
         {
+            if (F.Busqueda != false)
+            {
+                F.Arbol_Apellido.Empty();
+                F.Arbol_Nombre.Empty();
+                F.Arbol_NumeroDR.Empty();
+                F.Busqueda = false;
+            }
             return View();
         }
         [HttpPost]
@@ -142,7 +149,7 @@ namespace PROYECTO_1203819_2530019.Controllers
             ArbolDePrioridad<LlaveArbolPrioridad> Temparbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
             Temparbol = F.Arbol_Prioridad.Clone();
             LlaveArbolPrioridad Tempprioridad;
-            F.ViewPaciente = new DoubleLinkedList<PacienteView>();
+            F.ViewPaciente = new DoubleLinkedList<Paciente>();
             do
             {
                 Tempprioridad = new LlaveArbolPrioridad();
@@ -153,15 +160,8 @@ namespace PROYECTO_1203819_2530019.Controllers
                     {
                         Paciente TempPaciente = new Paciente();
                         TempPaciente = F.Tabla_Hash.Find(Convert.ToString(Tempprioridad.CodigoHash));
-                        PacienteView TempPView = new PacienteView();
-                        TempPView.Nombre = TempPaciente.Nombre;
-                        TempPView.Apellido = TempPaciente.Apellido;
-                        TempPView.DPI = TempPaciente.DPI;
-                        TempPView.Departamento = TempPaciente.Departamento;
-                        TempPView.Municipio = TempPaciente.Municipio;
-                        TempPView.Edad = TempPaciente.Edad;
-                        TempPView.Prioridad = Tempprioridad.Prioridad;
-                        F.ViewPaciente.Add(TempPView);
+                        TempPaciente.Prioridad = Tempprioridad.Prioridad;
+                        F.ViewPaciente.Add(TempPaciente);
                     }
                 }
             } while (Tempprioridad.CodigoHash != 0);
@@ -264,34 +264,52 @@ namespace PROYECTO_1203819_2530019.Controllers
         }
         public IActionResult Vacunacion()
         {
-            while (!F.Arbol_Prioridad.isempty())
+            restablecerfechas();
+            if (!F.Arbol_Prioridad.isempty())
             {
-                LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
-                Temp = F.Arbol_Prioridad.Remove();
-                F.ListaVacunar.add(Temp);
+                F.ArbolVacunar = F.Arbol_Prioridad.Clone();
+                F.Arbol_Prioridad.Empty();
             }
-
             return RedirectToAction("Vacunacion2");
         }
         public IActionResult Vacunacion2()
         {
+            if (!F.ArbolVacunarNollegados.isempty())
+            {
+                restablecerfechas2();
+            }
             DoubleLinkedList<Paciente> TempView = new DoubleLinkedList<Paciente>();
             ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
-            TempArbol = F.ListaVacunar.Clone();
-            DateTime TempFecha = DateTime.Now;
-            DateTime TempFecha2 = DateTime.Today;
-            TempFecha2 = TempFecha2.AddDays(7);
-            TempFecha2 = TempFecha2.AddHours(8);
+            ArbolDePrioridad<LlaveArbolPrioridad> TempArbol2 = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            if (F.ArbolVacunar.isempty() && F.ArbolVacunarNollegados.isempty())
+            {
+                return View(TempView);
+            }
+            if (!F.ArbolVacunar.isempty())
+            {
+                TempArbol = F.ArbolVacunar.Clone();
+                do
+                {
+                    LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
+                    Temp = TempArbol.Remove();
+                    Paciente ViewVacunar = new Paciente();
+                    ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
+                    TempView.Add(ViewVacunar);
+                } while (!TempArbol.isempty());
+            }
+            if (F.ArbolVacunarNollegados.isempty())
+            {
+                return View(TempView);
+            }
+            TempArbol2 = F.ArbolVacunarNollegados.Clone();
             do
             {
                 LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
-                Temp = TempArbol.Remove();
+                Temp = TempArbol2.Remove();
                 Paciente ViewVacunar = new Paciente();
                 ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
-                ViewVacunar.Fecha = TempFecha2;
-                TempFecha2 = TempFecha2.AddMinutes(20);
                 TempView.Add(ViewVacunar);
-            } while (!TempArbol.isempty());
+            } while (!TempArbol2.isempty());
             return View(TempView);
         }
         public bool CalcSiLlego()
@@ -307,16 +325,135 @@ namespace PROYECTO_1203819_2530019.Controllers
         }
         public void restablecerfechas()
         {
+            ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            F.TempFecha = new DateTime();
+            F.TempFecha = DateTime.Today;
+            TempArbol = F.Arbol_Prioridad.Clone();
+            F.TempFecha = F.TempFecha.AddDays(7);
+            F.TempFecha = F.TempFecha.AddHours(8);
+            while (!TempArbol.isempty())
+            {
+                for (int i = 0; i < F.CantidadPasar; i++)
+                {
+                    if (!TempArbol.isempty())
+                    {
+                        LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
+                        Temp = TempArbol.Remove();
+                        Paciente ViewVacunar = new Paciente();
+                        ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
+                        F.Tabla_Hash.Remove(Convert.ToString(Temp.CodigoHash));
+                        ViewVacunar.Fecha = F.TempFecha;
+                        F.Tabla_Hash.Add(Convert.ToString(ViewVacunar.DPI), ViewVacunar);
+                    }
+                }
+                F.TempFecha = F.TempFecha.AddMinutes(15);
+            }
+        }
+        public void restablecerfechas2()
+        {
+            DateTime Tempfecha2 = new DateTime();
+            Tempfecha2 = F.TempFecha;
+            DateTime Tempfecha3 = new DateTime();
+            int Repetidos = 0;
+            if (F.ArbolVacunarNollegados.isempty())
+            {
+                return;
+            }
+            ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            TempArbol = F.ArbolVacunarNollegados.Clone();
+            ArbolDePrioridad<LlaveArbolPrioridad> TempArbol2 = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            if (F.ArbolVacunar.isempty())
+            {
+                Repetidos = F.CantidadPasar;
+            }
+            else
+            {
+                TempArbol2 = F.ArbolVacunar.Clone();
+                while (!TempArbol2.isempty())
+                {
+                    LlaveArbolPrioridad llaveA = TempArbol2.Remove();
+                    Paciente Tpaciente = F.Tabla_Hash.Find(Convert.ToString(llaveA.CodigoHash));
+                    if (Tpaciente.Fecha.AddMinutes(15) == F.TempFecha)
+                    {
+                        Tempfecha3 = Tpaciente.Fecha;
+                        Repetidos++;
+                    }
+                }
+            }
+            if (Repetidos == F.CantidadPasar)
+            {
+                while (!TempArbol.isempty())
+                {
+                    for (int i = 0; i < F.CantidadPasar; i++)
+                    {
+                        if (!TempArbol.isempty())
+                        {
+                            LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
+                            Temp = TempArbol.Remove();
+                            Paciente ViewVacunar = new Paciente();
+                            ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
+                            F.Tabla_Hash.Remove(Convert.ToString(Temp.CodigoHash));
+                            ViewVacunar.Fecha = Tempfecha2;
+                            F.Tabla_Hash.Add(Convert.ToString(ViewVacunar.DPI), ViewVacunar);
+                        }
+                    }
+                    Tempfecha2 = Tempfecha2.AddMinutes(15);
+                }
+            }
+            else
+            {
+                for (int h = Repetidos; h < F.CantidadPasar; h++)
+                {
+                    if (TempArbol.isempty())
+                    {
+                        LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
+                        Temp = TempArbol.Remove();
+                        Paciente ViewVacunar = new Paciente();
+                        ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
+                        F.Tabla_Hash.Remove(Convert.ToString(Temp.CodigoHash));
+                        ViewVacunar.Fecha = Tempfecha3;
+                        F.Tabla_Hash.Add(Convert.ToString(ViewVacunar.DPI), ViewVacunar);
+                    }
+
+                }
+                while (!TempArbol.isempty())
+                {
+                    for (int i = 0; i < F.CantidadPasar; i++)
+                    {
+                        if (!TempArbol.isempty())
+                        {
+                            LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
+                            Temp = TempArbol.Remove();
+                            Paciente ViewVacunar = new Paciente();
+                            ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
+                            F.Tabla_Hash.Remove(Convert.ToString(Temp.CodigoHash));
+                            ViewVacunar.Fecha = Tempfecha2;
+                            F.Tabla_Hash.Add(Convert.ToString(ViewVacunar.DPI), ViewVacunar);
+                        }
+                    }
+                    Tempfecha2 = Tempfecha2.AddMinutes(15);
+                }
+            }
 
         }
         public IActionResult Realizarinjeccion()
         {
             ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
-            TempArbol = F.ListaVacunar.Clone();
-            Vacunados Vacunar = new Vacunados();
-
-
-            for(int i = 0; i < 3; i++)
+            ArbolDePrioridad<LlaveArbolPrioridad> TempArbol2 = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            if (F.ArbolVacunar.isempty() && F.ArbolVacunarNollegados.isempty())
+            {
+                return RedirectToAction("Vacunacion2");
+            }
+            if (!F.ArbolVacunar.isempty())
+            {
+                TempArbol = F.ArbolVacunar.Clone();
+            }
+            if (!F.ArbolVacunarNollegados.isempty())
+            {
+                TempArbol2 = F.ArbolVacunarNollegados.Clone();
+            }
+            DoubleLinkedList<Paciente> ViewVacunacion = new DoubleLinkedList<Paciente>();
+            for (int i = 0; i < F.CantidadPasar; i++)
             {
                 if (!TempArbol.isempty())
                 {
@@ -324,30 +461,68 @@ namespace PROYECTO_1203819_2530019.Controllers
                     Templlave = TempArbol.Remove();
                     Paciente ViewVacunar = new Paciente();
                     ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Templlave.CodigoHash));
-                    switch (i)
-                    {
-                        case 0:
-                            Vacunar.Nombre = ViewVacunar.Nombre;
-                            Vacunar.Apellido = ViewVacunar.Apellido;
-                            Vacunar.DPI = ViewVacunar.DPI;
-                            Vacunar.Fecha = ViewVacunar.Fecha;
-                            break;
-                        case 1:
-                            Vacunar.Nombre2 = ViewVacunar.Nombre;
-                            Vacunar.Apellido2 = ViewVacunar.Apellido;
-                            Vacunar.DPI2 = ViewVacunar.DPI;
-                            Vacunar.Fecha2 = ViewVacunar.Fecha;
-                            break;
-                        case 2:
-                            Vacunar.Nombre3 = ViewVacunar.Nombre;
-                            Vacunar.Apellido3 = ViewVacunar.Apellido;
-                            Vacunar.DPI3 = ViewVacunar.DPI;
-                            Vacunar.Fecha3 = ViewVacunar.Fecha;
-                            break;
-                    }
+                    ViewVacunacion.Add(ViewVacunar);
+                }
+                else if (!TempArbol2.isempty())
+                {
+                    LlaveArbolPrioridad Templlave = new LlaveArbolPrioridad();
+                    Templlave = TempArbol2.Remove();
+                    Paciente ViewVacunar = new Paciente();
+                    ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Templlave.CodigoHash));
+                    ViewVacunacion.Add(ViewVacunar);
                 }
             }
-            return View();
+            return View(ViewVacunacion);
+        }
+        public IActionResult Realizarinjeccion2()
+        {
+            DoubleLinkedList<Paciente> ViewEspera = new DoubleLinkedList<Paciente>();
+            ArbolDePrioridad<LlaveArbolPrioridad> TempNollegados = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            TempNollegados = F.ArbolVacunarNollegados.Clone();
+            for (int i = 0; i < F.CantidadPasar; i++)
+            {
+                if (!F.ArbolVacunar.isempty() || !TempNollegados.isempty())
+                {
+                    LlaveArbolPrioridad Templlave = new LlaveArbolPrioridad();
+                    if (!F.ArbolVacunar.isempty())
+                    {
+                        Templlave = F.ArbolVacunar.Remove();
+                    }
+                    else
+                    {
+                        Templlave = F.ArbolVacunarNollegados.Remove();
+                        TempNollegados.Remove();
+                    }
+
+
+                    Paciente Temppaciente = new Paciente();
+                    Temppaciente = F.Tabla_Hash.Find(Convert.ToString(Templlave.CodigoHash));
+                    if (CalcSiLlego())
+                    {
+                        F.Tabla_Hash.Remove(Convert.ToString(Templlave.CodigoHash));
+                        Temppaciente.Paciente_Llego = true;
+                    }
+                    else
+                    {
+                        Temppaciente.Paciente_Llego = false;
+                        F.ArbolVacunarNollegados.add(Templlave);
+                    }
+                    ViewEspera.Add(Temppaciente);
+                }
+
+            }
+
+            return View(ViewEspera);
+        }
+        public IActionResult RegesoRegistrar()
+        {
+            if (!F.ArbolVacunar.isempty())
+            {
+                return RedirectToAction("Vacunacion2");
+            }
+            F.ViewPaciente = new DoubleLinkedList<Paciente>();
+            F.Busqueda = true;
+            return RedirectToAction("Index");
         }
     }
 }

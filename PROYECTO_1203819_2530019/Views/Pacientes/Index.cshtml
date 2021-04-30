@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PROYECTO_1203819_2530019.Models.PacienteView>
+﻿@model IEnumerable<PROYECTO_1203819_2530019.Models.Paciente>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +8,6 @@
 <p>
     Selecione la busqueda que desea
 </p>
-
 <form asp-controller="Pacientes" asp-action="Search">
 
     <select name="Filter">
@@ -23,38 +22,38 @@
     </div>
 </form>
 <a style="color: black" asp-action="Registro" class="btn btn-primary  btn-block" role="button">Registrar otro cliente</a>
-<a style="color: black" asp-action="Vacunacion" class="btn btn-secondary btn-block" role="button">Terminar Registro</a>
-    <table class="table">
-        <thead>
+<a style="color: black" asp-action="Vacunacion" class="btn btn-secondary btn-block" role="button">Vacunacion</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DPI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Municipio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prioridad)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Apellido)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DPI)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Departamento)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Municipio)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Edad)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Prioridad)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-             {
-              <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
@@ -76,7 +75,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Prioridad)
                 </td>
-              </tr>
-             }
-        </tbody>
-    </table>
+            </tr>
+        }
+    </tbody>
+</table>

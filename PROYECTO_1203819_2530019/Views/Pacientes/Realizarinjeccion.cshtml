@@ -1,4 +1,4 @@
-﻿@model PROYECTO_1203819_2530019.Models.Vacunados
+﻿@model IEnumerable<PROYECTO_1203819_2530019.Models.Paciente>
 
 @{
     ViewData["Title"] = "Realizarinjeccion";
@@ -6,95 +6,62 @@
 
 <h1>Realizarinjeccion</h1>
 
-<div>
-    <h4>Vacunados</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Apellido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DPI)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DPI)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-    </dl>
-</div>
-<div>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre2)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nombre2)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Apellido2)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Apellido2)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DPI2)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DPI2)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha2)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Fecha2)
-        </dd>
-    </dl>
-</div>
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre3)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nombre3)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Apellido3)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Apellido3)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DPI3)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DPI3)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha3)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Fecha3)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Vacunacion2">Vacunar</a>
-    <a asp-action="Vacunacion2">Regresar</a>
-</div>
-
-
+<p>
+    <a style="color: black" asp-action="Realizarinjeccion2" class="btn btn-primary  btn-block" role="button">Realizar vacunacion</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DPI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Municipio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DPI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Municipio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Edad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

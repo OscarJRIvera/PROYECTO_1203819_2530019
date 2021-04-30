@@ -9,7 +9,7 @@ namespace PROYECTO_1203819_2530019.Data
 {
     public class PROYECTO_1203819_2530019Context : DbContext
     {
-        public PROYECTO_1203819_2530019Context (DbContextOptions<PROYECTO_1203819_2530019Context> options)
+        public PROYECTO_1203819_2530019Context(DbContextOptions<PROYECTO_1203819_2530019Context> options)
             : base(options)
         {
         }
@@ -18,6 +18,5 @@ namespace PROYECTO_1203819_2530019.Data
 
         public DbSet<PROYECTO_1203819_2530019.Models.PacienteView> PacienteView { get; set; }
 
-        public DbSet<PROYECTO_1203819_2530019.Models.Vacunados> Vacunados { get; set; }
     }
 }

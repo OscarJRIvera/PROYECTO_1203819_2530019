@@ -24,9 +24,9 @@ namespace ArbolDePrioridad
             this.Ordenado = a.Ordenado;
         }
         public delegate int Comparador<T>(T a, T b);
-        public ArbolDePrioridad(Comparador<T> Funcomparador) 
+        public ArbolDePrioridad(Comparador<T> Funcomparador)
         {
-            this.comparador = Funcomparador; 
+            this.comparador = Funcomparador;
         }
         Nodo<T> root = new Nodo<T>();
 
@@ -45,6 +45,13 @@ namespace ArbolDePrioridad
                 return true;
             }
             return false;
+        }
+        public void Empty()
+        {
+            root = null;
+            CantidadNodos = 0;
+            Comprobacion = new bool();
+            Ordenado = new bool();
         }
         public T Peek()
         {
