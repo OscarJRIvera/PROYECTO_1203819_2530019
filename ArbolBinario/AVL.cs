@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ArbolBinario
 {
-    public class AVL<T>: ICloneable
+    public class AVL<T> : ICloneable
     {
         public AVL<T> Clone()
         {
@@ -28,6 +28,10 @@ namespace ArbolBinario
         internal Nodo<T> root;
         internal Comparador<T> comparador;
         internal Comparador2<T> comparador2;//una de las propiedades del arbol es el comparador
+        public void Empty()
+        {
+            root = null;
+        }
 
         public void Add(T dato)
         {
@@ -349,8 +353,8 @@ namespace ArbolBinario
             }
             return Math.Max(vistaI, vistaD);
         }
-        
-       
+
+
         private void Balanceo()
         {
             var resultadoPivote = Pivote(root, root);

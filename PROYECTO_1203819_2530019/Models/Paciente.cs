@@ -31,6 +31,10 @@ namespace PROYECTO_1203819_2530019.Models
         public int Asilo { get; set; }
         [Required]
         public DateTime Fecha { get; set; }
+        [Required]
+        public bool Paciente_Llego { get; set; }
+        [Required]
+        public double Prioridad { get; set; }
 
         public static int Compare_Nombre(Paciente x, string y)
         {
@@ -40,6 +44,11 @@ namespace PROYECTO_1203819_2530019.Models
         public static int Compare_DPI(Paciente x, Int64 y)
         {
             int r = x.DPI.CompareTo(y);
+            return r;
+        }
+        public static int Compare_Fecha(Paciente x, DateTime y)
+        {
+            int r = x.Fecha.CompareTo(y);
             return r;
         }
 
