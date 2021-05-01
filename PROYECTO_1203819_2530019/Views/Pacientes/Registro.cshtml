@@ -28,7 +28,7 @@
                 <label asp-for="Apellido" class="control-label"></label>
                 <div style="text-align :center;">
                     <input style="position:absolute;top:-15%;left:35%" asp-for="Apellido" type="text" class="form-control" placeholder="Primer apellido" aria-label="x" aria-describedby="basic-addon2" required>
-                    <input style="position:absolute;top:-15%;left:140%" type="text" class="form-control" placeholder="Segundo apellido" aria-label="x" aria-describedby="basic-addon2" required> 
+                    <input style="position:absolute;top:-15%;left:140%" type="text" class="form-control" placeholder="Segundo apellido" aria-label="x" aria-describedby="basic-addon2" required>
                 </div>
                 <span asp-validation-for="Apellido" class="text-danger"></span>
 
@@ -42,7 +42,7 @@
             <div class="input-group mb-3">
                 <label asp-for="DPI" class="control-label"></label>
                 <div style="text-align :center;">
-                    <input style="position:absolute;top:-15%;left:35%" asp-for="DPI" class="form-control" max="9999999999999" min="1000000000000">
+                    <input style="position:absolute;top:-15%;left:35%" asp-for="DPI" class="form-control" max="9999999999999" min="1000000000000" required>
                     <span asp-validation-for="DPI" class="text-danger"></span>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                 </div>
                 <label style="position:absolute;top:22%;left:140%" asp-for="Municipio" class="control-label"></label>
                 <div style="text-align :center;">
-                    <input style="position:absolute;top:22%;left:160%" asp-for="Municipio" class="form-control" required/>
+                    <input style="position:absolute;top:22%;left:160%" asp-for="Municipio" class="form-control" required />
                     <span asp-validation-for="Municipio" class="text-danger"></span>
                 </div>
 
@@ -88,7 +88,7 @@
             <div class="input-group mb-3">
                 <label asp-for="Edad" class="control-label"></label>
                 <div style="text-align :center;">
-                    <input style="position:absolute;top:-15%;left:35%" asp-for="Edad" class="form-control" required/>
+                    <input style="position:absolute;top:-15%;left:35%" asp-for="Edad" class="form-control" max="120" required />
                     <span asp-validation-for="Edad" class="text-danger"></span>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                         <option value="9">Sector educativo</option>
                         <option value="2">Comadrona, Promotor voluntario o terapeuta maya</option>
                         <option value="11">-Otro,estudia o no trabaja</option>
-                        
+
                     </select>
                 </div>
 
@@ -152,7 +152,7 @@
                 </div>
 
             </div>
-            
+
             <div class="input-group mb-3">
                 <label asp-for="Asilo" class="control-label">Su lugar de vivienda es una institucion de adultos mayores?</label>
 

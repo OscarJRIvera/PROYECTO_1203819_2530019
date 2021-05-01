@@ -169,6 +169,7 @@ namespace ArbolDePrioridad
             }
             if (root == null)
             {
+                CantidadNodos--;
                 return Temp.Value;
             }
             OrdenarEliminacion(root);
