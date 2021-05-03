@@ -3,13 +3,19 @@
 @{
     ViewData["Title"] = "Search";
 }
+<body>
+    <header class="registro">
 
-<h1>Search</h1>
+        <h1 style="color:darkblue">Búsqueda de paciente</h1>
+
+    </header>
+</body>
+
 
 <p>
-    <a asp-action="Index">Regresar</a>
+    <a asp-action="Buscar">Regresar</a>
 </p>
-<table class="table">
+<table class="table table-success table-striped">
     <thead>
         <tr>
             <th>
@@ -34,27 +40,29 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DPI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Departamento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Municipio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edad)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DPI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Municipio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Edad)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<a style="color: black" asp-action="Index" asp-controller="Home" class="btn btn-danger btn-block" role="button">Regresar a Home</a>

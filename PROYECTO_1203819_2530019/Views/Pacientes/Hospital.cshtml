@@ -1,0 +1,429 @@
+﻿@model PROYECTO_1203819_2530019.Models.Paciente
+
+@{
+
+    ViewData["Title"] = "IrAHospital";
+}
+
+<div class="fondo3">
+    <div class="row">
+        <form asp-action="InfoHospital">
+            <div class="form-group">
+                    <select style="position:absolute;top:50%;left:23%" asp-for="Departamento" id="Departamento" required onchange="cambioDep(this)">
+                        <option value="" selected disabled hidden>Seleccione</option>
+                        <option value="Guatemala">Guatemala</option>
+                        <option value="Alta Verapaz">Alta Verapaz</option>
+                        <option value="Baja Verapaz">Baja Verapaz</option>
+                        <option value="Chimaltenango">Chimaltenango</option>
+                        <option value="Chiquimula">Chiquimula</option>
+                        <option value="El Progreso">El progreso</option>
+                        <option value="Escuintla">Escuintla</option>
+                        <option value="Huehuetenango">Huehuetenango</option>
+                        <option value="Izabal">Izabal</option>
+                        <option value="Jalapa">Jalapa</option>
+                        <option value="Jutiapa">Jutiapa</option>
+                        <option value="Petén">Petén</option>
+                        <option value="Quetzaltenango">Quetzaltenango</option>
+                        <option value="Quiché">Quiché</option>
+                        <option value="Retalhuleu">Retalhuleu</option>
+                        <option value="Sacatepéquez">Sacatepéquez</option>
+                        <option value="San Marcos">San Marcos</option>
+                        <option value="Santa Rosa">Santa Rosa</option>
+                        <option value="Sololá">Sololá</option>
+                        <option value="Suchitepéquez">Suchitepéquez</option>
+                        <option value="Totonicapán">Totonicapán</option>
+                        <option value="Zacapa">Zacapa</option>
+
+                    </select>
+
+            </div>
+            <div class="form-group">
+                <select style="position:absolute;top:49%;left:65%" asp-for="Municipio" id="Municipio" class="form-text" required>
+                    <option value="" selected disabled hidden>Seleccione</option>
+                </select>
+
+            </div>
+            <div>
+                <input type="submit" style="position:absolute;top:60%;left:83%" value="Ir a centro" class="btn btn-primary" />
+                <a style="color: black; position:absolute;top:65%;left:83%" asp-action="Index" asp-controller="Home" class="btn btn-danger " role="button">Regresar a Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function cambioDep(selObj) {
+            var departamento = selObj.value;
+            var listMun = document.querySelector("#Municipio");
+            listMun.innerHTML = "<option value=\"\" selected disabled hidden>Seleccione</option>";
+
+            switch (departamento) {
+                case "Guatemala":
+                    listMun.innerHTML += "<option value=\"Guatemala\">Guatemala</option>";
+                    listMun.innerHTML += "<option value=\"Mixco\">Mixco</option>";
+                    listMun.innerHTML += "<option value=\"Santa Catarina Pinula\">Santa Catarina Pinula</option>";
+                    listMun.innerHTML += "<option value=\"San José Pinula.\">San José Pinula.</option>";
+                    listMun.innerHTML += "<option value=\"San José del Golfo\">San José del Golfo</option>";
+                    listMun.innerHTML += "<option value=\"Palencia\">Palencia</option>";
+                    listMun.innerHTML += "<option value=\"Chinautla\">Chinautla</option>";
+                    listMun.innerHTML += "<option value=\"San Pedro Ayampuc\">San Pedro Ayampuc</option>";
+                    listMun.innerHTML += "<option value=\"San Pedro Sacatapéquez\">San Pedro Sacatapéquez</option>";
+                    listMun.innerHTML += "<option value=\"San Juan Sacatepéquez\">San Juan Sacatepéquez</option>";
+                    listMun.innerHTML += "<option value=\"Chuarrancho\">Chuarrancho</option>";
+                    listMun.innerHTML += "<option value=\"San Raymundo\">San Raymundo</option>";
+                    listMun.innerHTML += "<option value=\"Fraijanes\">Fraijanes</option>";
+                    listMun.innerHTML += "<option value=\"Amatitlán\">Amatitlán</option>";
+                    listMun.innerHTML += "<option value=\"Villa Nueva\">Villa Nueva</option>";
+                    listMun.innerHTML += "<option value=\"Villa Canales\">Villa Canales</option>";
+                    listMun.innerHTML += "<option value=\"San Miguel Petapa\">San Miguel Petapa</option>";
+                    break;
+                case "Petén":
+                    listMun.innerHTML += "<option value=\"San José.\">San José.</option>";
+                    listMun.innerHTML += "<option value=\"Poptún\">Poptún</option>";
+                    listMun.innerHTML += "<option value=\" Melchor de Mencos\"> Melchor de Mencos.</option>";
+                    listMun.innerHTML += "<option value=\"Sayaxché.\">Sayaxché.</option>";
+                    listMun.innerHTML += "<option value=\"San Luis\">San Luis</option>";
+                    listMun.innerHTML += "<option value=\"Dolores\">Dolores</option>";
+                    listMun.innerHTML += "<option value=\"Santa Ana\">Santa Ana</option>";
+                    listMun.innerHTML += "<option value=\"San Francisco\">San Francisco</option>";
+                    listMun.innerHTML += "<option value=\"La Libertad\">La Libertad</option>";
+                    listMun.innerHTML += "<option value=\"San Andrés\">San Andrés</option>";
+                    listMun.innerHTML += "<option value=\"San Benito\">San Benito</option>";
+                    listMun.innerHTML += "<option value=\"San José\">San José</option>";
+                    listMun.innerHTML += "<option value=\"Flores \">Flores </option>";
+                    break;
+                case "Alta Verapaz":
+                    listMun.innerHTML += "<option value=\"Cobán\">Cobán</option>";
+                    listMun.innerHTML += "<option value=\"Santa Cruz Verapaz\">Santa Cruz Verapaz</option>";
+                    listMun.innerHTML += "<option value=\"San Cristobal Verapaz\"> San Cristobal Verapaz</option>";
+                    listMun.innerHTML += "<option value=\"Tactic\">Tactic</option>";
+                    listMun.innerHTML += "<option value=\"Tamahú\">Tamahú</option>";
+                    listMun.innerHTML += "<option value=\"San Miguel Tucurú\">San Miguel Tucurú</option>";
+                    listMun.innerHTML += "<option value=\" Panzóz\"> Panzóz</option>";
+                    listMun.innerHTML += "<option value=\" Senahú\"> Senahú</option>";
+                    listMun.innerHTML += "<option value=\"San Pedro Carchá\">San Pedro Carchá</option>";
+                    listMun.innerHTML += "<option value=\" Santa María Cahabón\"> Santa María Cahabón</option>";
+                    listMun.innerHTML += "<option value=\" Chisec\"> Chisec</option>";
+                    listMun.innerHTML += "<option value=\"Chahal\">Chahal</option>";
+                    listMun.innerHTML += "<option value=\"Fray Bartolomé de las Casas \">Fray Bartolomé de las Casas</option>";
+                    break;
+                case "Baja Verapaz":
+                    listMun.innerHTML += "<option value=\"Salamá\">Salamá</option>";
+                    listMun.innerHTML += "<option value=\"San Miguel Chicaj\">San Miguel Chicaj</option>";
+                    listMun.innerHTML += "<option value=\"Rabinal\"> Rabinal</option>";
+                    listMun.innerHTML += "<option value=\"Granados\">Granados</option>";
+                    listMun.innerHTML += "<option value=\"Cubulco\">Cubulco</option>";
+                    listMun.innerHTML += "<option value=\"Santa Cruz el Chol\">Santa Cruz el Chol</option>";
+                    listMun.innerHTML += "<option value=\" San Jerónimo\">San Jerónimo</option>";
+                    listMun.innerHTML += "<option value=\" Purulhá\">Purulhá</option>";
+
+                    break;
+                case "Chimaltenango":
+                    listMun.innerHTML += "<option value=\"Chimaltenango\">Chimaltenango</option>";
+                    listMun.innerHTML += "<option value=\"San José Poaquil\">San José Poaquil.</option>";
+                    listMun.innerHTML += "<option value=\"San Martín Jilotepeque\"> San Martín Jilotepeque</option>";
+                    listMun.innerHTML += "<option value=\"San Juan Comalapa\">San Juan Comalapa</option>";
+                    listMun.innerHTML += "<option value=\" Santa Apolonia\"> Santa Apolonia</option>";
+                    listMun.innerHTML += "<option value=\"Tecpán\">Tecpán</option>";
+                    listMun.innerHTML += "<option value=\" San Miguel Pochuta\"> San Miguel Pochuta</option>";
+                    listMun.innerHTML += "<option value=\"Patzicía\">Patzicía</option>";
+                    listMun.innerHTML += "<option value=\"Acatenango\">Acatenango</option>";
+                    listMun.innerHTML += "<option value=\" San Pedro Yepocapa\"> San Pedro Yepocapa</option>";
+                    listMun.innerHTML += "<option value=\" Parramos\" > Parramos</option>";
+                    listMun.innerHTML += "<option value=\" Zaragoza\"> Zaragoza</option>";
+                    listMun.innerHTML += "<option value=\"El Tejar \">El Tejar</option>";
+                    break;
+                case "Chiquimula":
+                    listMun.innerHTML += "<option value=\"Chiquimula\">Chiquimula</option>";
+                    listMun.innerHTML += "<option value=\"Jocotán\">Jocotán</option>";
+                    listMun.innerHTML += "<option value=\"Esquipulas\">Esquipulas</option>";
+                    listMun.innerHTML += "<option value=\"Camotán\">Camotán</option>";
+                    listMun.innerHTML += "<option value=\"Quezaltepeque\">Quezaltepeque</option>";
+                    listMun.innerHTML += "<option value=\"Olopa\">Olopa</option>";
+                    listMun.innerHTML += "<option value=\"Ipala\">Ipala</option>";
+                    listMun.innerHTML += "<option value=\"San Juan Hermita\">San Juan Hermita</option>";
+                    listMun.innerHTML += "<option value=\"Concepción Las Minas\">Concepción Las Minas</option>";
+                    listMun.innerHTML += "<option value=\" San Jacinto\">San Jacinto</option>";
+                    listMun.innerHTML += "<option value=\"San José la Arada\" > San José la Arada</option>";
+
+                    break;
+                case "El progreso":
+                    listMun.innerHTML += "<option value=\"El Jícaro\">El Jícaro</option>";
+                    listMun.innerHTML += "<option value=\"Morazán\">Morazán</option>";
+                    listMun.innerHTML += "<option value=\"San Agustín Acasaguastlán\">San Agustín Acasaguastlán</option>";
+                    listMun.innerHTML += "<option value=\"San Antonio La Paz\">San Antonio La Paz</option>";
+                    listMun.innerHTML += "<option value=\"San Cristóbal Acasaguastlán\">San Cristóbal Acasaguastlán</option>";
+                    listMun.innerHTML += "<option value=\" Sanarate\"> Sanarate</option>";
+                    listMun.innerHTML += "<option value=\"Guastatoya\">Guastatoya</option>";
+                    listMun.innerHTML += "<option value=\"Sansare\">Sansare</option>";
+                    break;
+                case "Quiché":
+                    listMun.innerHTML += "<option value=\"Santa Cruz del Quiché\">Santa Cruz del Quiché</option>";
+                    listMun.innerHTML += "<option value=\"Pachalum\">Pachalum</option>";
+                    listMun.innerHTML += "<option value=\"Ixcán\">Ixcán</option>";
+                    listMun.innerHTML += "<option value=\"Chicamán\">Chicamán</option>";
+                    listMun.innerHTML += "<option value=\"Canillá\">Canillá</option>";
+                    listMun.innerHTML += "<option value=\"San Bartolomé Jocotenango\">San Bartolomé Jocotenango</option>";
+                    listMun.innerHTML += "<option value=\"Sacapulas\">Sacapulas</option>";
+                    listMun.innerHTML += "<option value=\"Uspantán\">Uspantán</option>";
+                    listMun.innerHTML += "<option value=\"San Andrés Sajcabajá\">San Andrés Sajcabajá</option>";
+                    listMun.innerHTML += "<option value=\"Santa María Nebaj\">Santa María Nebaj</option>";
+                    listMun.innerHTML += "<option value=\"Santa María Joyabaj\">Santa María Joyabaj</option>";
+                    listMun.innerHTML += "<option value=\"San Juan Cotzal\">San Juan Cotzal</option>";
+                    listMun.innerHTML += "<option value=\"Cunén\">Cunén</option>";
+                    listMun.innerHTML += "<option value=\"San Pedro Jocopilas\">San Pedro Jocopilas</option>";
+                    listMun.innerHTML += "<option value=\"San Antonio Ilotenango\">San Antonio Ilotenango</option>";
+                    listMun.innerHTML += "<option value=\"Patzité\">Patzité</option>";
+                    listMun.innerHTML += "<option value=\"Santo Tomás Chichicastenango\" > Santo Tomás Chichicastenango</option>";
+                    listMun.innerHTML += "<option value=\"Chajul\">Chajul</option>";
+                    listMun.innerHTML += "<option value=\"Zacualpa\">Zacualpa</option>";
+                    listMun.innerHTML += "<option value=\"Chinique\">Chinique</option>";
+                    listMun.innerHTML += "<option value=\"Chiché\" > Chiché</option>";
+                    break;
+                case "Escuintla":
+                    listMun.innerHTML += "<option value=\"Escuintla\">Escuintla</option>";
+                    listMun.innerHTML += "<option value=\"Santa Lucía Cotzumalguapa\">Santa Lucía Cotzumalguapa</option>";
+                    listMun.innerHTML += "<option value=\"La Democracia\">La Democracia</option>";
+                    listMun.innerHTML += "<option value=\"Siquinalá\">Siquinalá</option>";
+                    listMun.innerHTML += "<option value=\" Masagua\">Masagua</option>";
+                    listMun.innerHTML += "<option value=\"Tiquisate\">Tiquisate</option>";
+                    listMun.innerHTML += "<option value=\"La Gomera\">La Gomera</option>";
+                    listMun.innerHTML += "<option value=\"Guaganazapa\">Guaganazapa</option>";
+                    listMun.innerHTML += "<option value=\"San José\">San José</option>";
+                    listMun.innerHTML += "<option value=\"Iztapa\">Iztapa</option>";
+                    listMun.innerHTML += "<option value=\"Palín\">Palín</option>";
+                    listMun.innerHTML += "<option value=\"San Vicente Pacaya\">San Vicente Pacaya</option>";
+                    listMun.innerHTML += "<option value=\"Nueva Concepción\">Nueva Concepción</option>";
+                    break;
+
+                case "Huehuetenango":
+                    listMun.innerHTML += "<option value=\"Huehuetenango\">Huehuetenango</option>";
+                    listMun.innerHTML += "<option value=\"Santa Ana Huista\">Santa Ana Huista</option>";
+                    listMun.innerHTML += "<option value=\"Santiago Chimaltenango\">Santiago Chimaltenango</option>";
+                    listMun.innerHTML += "<option value=\"San Gaspar Ixchil\">San Gaspar Ixchil</option>";
+                    listMun.innerHTML += "<option value=\"San Rafael Petzal\">San Rafael Petzal</option>";
+                    listMun.innerHTML += "<option value=\"Aguacatán\">Aguacatán</option>";
+                    listMun.innerHTML += "<option value=\"San Sebastián Coatán\"></option>";
+                    listMun.innerHTML += "<option value=\"Santa Cruz Barillas\">Santa Cruz Barillas</option>";
+                    listMun.innerHTML += "<option value=\"San Antonio Huista\">San Antonio Huista</option>";
+                    listMun.innerHTML += "<option value=\"Concepción Huista\">Concepción Huista</option>";
+                    listMun.innerHTML += "<option value=\"Tectitán\">Tectitán</option>";
+                    listMun.innerHTML += "<option value=\"San Sebastián Huehuetenango\">San Sebastián Huehuetenango</option>";
+                    listMun.innerHTML += "<option value=\"Colotenango\">Colotenango</option>";
+                    listMun.innerHTML += "<option value=\"San Mateo Ixtatán\">San Mateo Ixtatán</option>";
+                    listMun.innerHTML += "<option value=\"Santa Eulalia\">Santa Eulalia</option>";
+                    listMun.innerHTML += "<option value=\" San Juan Atitlán\"> San Juan Atitlán</option>";
+                    listMun.innerHTML += "<option value=\"La Libertad\">La Libertad</option>";
+                    listMun.innerHTML += "<option value=\"La Democracia\">La Democracia</option>";
+                    listMun.innerHTML += "<option value=\"Nentón\">Nentón</option>";
+                    listMun.innerHTML += "<option value=\"Santa Bárbara\">Santa Bárbara</option>";
+                    listMun.innerHTML += "<option value=\"Ixtahuacán\">Ixtahuacán</option>";
+                    listMun.innerHTML += "<option value=\"San Miguel Acatán\">San Miguel Acatán</option>";
+                    listMun.innerHTML += "<option value=\"San Pedro Necta\">San Pedro Necta</option>";
+                    listMun.innerHTML += "<option value=\" Chiantla\"> Chiantla</option>";
+                    listMun.innerHTML += "<option value=\"Malacatancito\">Malacatancito</option>";
+                    listMun.innerHTML += "<option value=\"Cuilco\">Cuilco</option>";
+                    break;
+                case "Izabal":
+                    listMun.innerHTML += "<option value=\"Morales\">Morales</option>";
+                    listMun.innerHTML += "<option value=\"Los Amates\">Los Amates</option>";
+                    listMun.innerHTML += "<option value=\"Livingston\">Livingston</option>";
+                    listMun.innerHTML += "<option value=\"El Estor\">El Estor</option>";
+                    listMun.innerHTML += "<option value=\"Puerto Barrios \">Puerto Barrios </option>";
+                    break;
+
+                case "Jalapa":
+                    listMun.innerHTML += "<option value=\"Jalapa\">Jalapa</option>";
+                    listMun.innerHTML += "<option value=\"San Pedro Pinula\">San Pedro Pinula</option>";
+                    listMun.innerHTML += "<option value=\"San Luis Jilotepeque\">San Luis Jilotepeque</option>";
+                    listMun.innerHTML += "<option value=\"San Manuel Chaparrón\">San Manuel Chaparrón</option>";
+                    listMun.innerHTML += "<option value=\"San Carlos Alzatate \">San Carlos Alzatate </option>";
+                    listMun.innerHTML += "<option value=\"Monjas\">Monjas</option>";
+                    listMun.innerHTML += "<option value=\"Mataquescuintla \">Mataquescuintla</option>";
+                    break;
+                case "Jutiapa":
+                    listMun.innerHTML += "<option value=\" Jutiapa\"> Jutiapa</option>";
+                    listMun.innerHTML += "<option value=\"Quesada\">Quesada</option>";
+                    listMun.innerHTML += "<option value=\"Moyuta\">Moyuta</option>";
+                    listMun.innerHTML += "<option value=\"Conguaco\">Conguaco</option>";
+                    listMun.innerHTML += "<option value=\"Jalpataguae \">Jalpatagua </option>";
+                    listMun.innerHTML += "<option value=\"Comapa\">Comapa</option>";
+                    listMun.innerHTML += "<option value=\"Zapotitlán\">Zapotitlán</option>";
+                    listMun.innerHTML += "<option value=\"El Adelanto \">El Adelanto </option>";
+                    listMun.innerHTML += "<option value=\"Jerez\">Jerez</option>";
+                    listMun.innerHTML += "<option value=\"Atescatempa\">Atescatempa</option>";
+                    break;
+
+                case "Suchitepéquez":
+                    listMun.innerHTML += "<option value=\" Río Bravo\">Río Bravo</option>";
+                    listMun.innerHTML += "<option value=\"Pueblo Nuevo\">Pueblo Nuevo</option>";
+                    listMun.innerHTML += "<option value=\"Zunilito\">Zunilito</option>";
+                    listMun.innerHTML += "<option value=\"Santo Tomás La Unión\">Santo Tomás La Unión</option>";
+                    listMun.innerHTML += "<option value=\"San Juan Bautista \">San Juan Bautista</option>";
+                    listMun.innerHTML += "<option value=\"Santa Bárbara\">Santa Bárbara</option>";
+                    listMun.innerHTML += "<option value=\"Patulul\">Patulul</option>";
+                    listMun.innerHTML += "<option value=\"Chicacao\">Chicacao </option>";
+                    listMun.innerHTML += "<option value=\"San Gabriel\">San Gabriel</option>";
+                    listMun.innerHTML += "<option value=\"San Miguel Panán\">San Miguel Panán</option>";
+                    listMun.innerHTML += "<option value=\"San Antonio Suchitépequez\">San Antonio Suchitépequez</option>";
+                    listMun.innerHTML += "<option value=\"San Pablo Jocopilas\">San Pablo Jocopilas </option>";
+                    listMun.innerHTML += "<option value=\" Samayac\"> Samayac</option>";
+                    listMun.innerHTML += "<option value=\"San Lorenzo\">San Lorenzo</option>";
+                    break;
+
+                case "Quetzaltenango":
+                    listMun.innerHTML += "<option value=\"Palestina de Los Altos\">Palestina de Los Altos</option>";
+                    listMun.innerHTML += "<option value=\"La Esperanza\">La Esperanza</option>";
+                    listMun.innerHTML += "<option value=\"Flores Costa Cuca\">Flores Costa Cuca</option>";
+                    listMun.innerHTML += "<option value=\"Génova\">Génova</option>";
+                    listMun.innerHTML += "<option value=\"Coatepeque\">Coatepeque</option>";
+                    listMun.innerHTML += "<option value=\"El Palmar\">El Palmar</option>";
+                    listMun.innerHTML += "<option value=\"San Francisco La Unión\">San Francisco La Unión</option>";
+                    listMun.innerHTML += "<option value=\"Colomba Costa Cuca\">Colomba Costa Cuca</option>";
+                    listMun.innerHTML += "<option value=\" Zunil\"> Zunil</option>";
+                    listMun.innerHTML += "<option value=\"Huitán\">Huitán</option>";
+                    listMun.innerHTML += "<option value=\"Cantel\">Cantel</option>";
+                    listMun.innerHTML += "<option value=\"Almolonga\">Almolonga </option>";
+                    listMun.innerHTML += "<option value=\"Concepción Chiquirichapa\">Concepción Chiquirichapa</option>";
+                    listMun.innerHTML += "<option value=\"San Mateo\">San Mateo</option>";
+                    listMun.innerHTML += "<option value=\"San Juan Ostuncalco\">San Juan Ostuncalco</option>";
+                    listMun.innerHTML += "<option value=\"San Miguel Siguilá\">San Miguel Siguilá</option>";
+                    break;
+                case "Retalhuleu":
+                    listMun.innerHTML += "<option value=\"Retalhuleu\">Retalhuleu</option>";
+                    listMun.innerHTML += "<option value=\"San Sebastián\">San Sebastián</option>";
+                    listMun.innerHTML += "<option value=\"Santa Cruz Muluá\">Santa Cruz Muluá</option>";
+                    listMun.innerHTML += "<option value=\"San Martín Zapotitlán\">San Martín Zapotitlán</option>";
+                    listMun.innerHTML += "<option value=\"San Felipe\">San Felipe</option>";
+                    listMun.innerHTML += "<option value=\"San Andrés Villa Seca\">San Andrés Villa Seca</option>";
+                    listMun.innerHTML += "<option value=\"Champerico\">Champerico</option>";
+                    listMun.innerHTML += "<option value=\"Nuevo San Carlos\">Nuevo San Carlos</option>";
+                    listMun.innerHTML += "<option value=\"El Asintal\">El Asintal</option>";
+                    break;
+                case "Retalhuleu":
+                    listMun.innerHTML += "<option value=\"Retalhuleu\">Retalhuleu</option>";
+                    listMun.innerHTML += "<option value=\"San Sebastián\">San Sebastián</option>";
+                    listMun.innerHTML += "<option value=\"Santa Cruz Muluá\">Santa Cruz Muluá</option>";
+                    listMun.innerHTML += "<option value=\"San Martín Zapotitlán\">San Martín Zapotitlán</option>";
+                    listMun.innerHTML += "<option value=\"San Felipe\">San Felipe</option>";
+                    listMun.innerHTML += "<option value=\"San Andrés Villa Seca\">San Andrés Villa Seca</option>";
+                    listMun.innerHTML += "<option value=\"Champerico\">Champerico</option>";
+                    listMun.innerHTML += "<option value=\"Nuevo San Carlos\">Nuevo San Carlos</option>";
+                    listMun.innerHTML += "<option value=\"El Asintal\">El Asintal</option>";
+                    break;
+                case "Sacatepéquez":
+                    listMun.innerHTML += "<option value=\" Antigua Guatemala\"> Antigua Guatemala</option>";
+                    listMun.innerHTML += "<option value=\"Jocotenango\">Jocotenango</option>";
+                    listMun.innerHTML += "<option value=\"Pastores\">Pastores</option>";
+                    listMun.innerHTML += "<option value=\"Sumpango\">Sumpango</option>";
+                    listMun.innerHTML += "<option value=\"Santo Domingo Xenacoj\">Santo Domingo Xenacoj</option>";
+                    listMun.innerHTML += "<option value=\"Santiago Sacatepéquez\">Santiago Sacatepéquez</option>";
+                    listMun.innerHTML += "<option value=\"Santa Lucía Milpas Altas\">Santa Lucía Milpas Altas</option>";
+                    listMun.innerHTML += "<option value=\"Magdalena Milpas Altas\">Magdalena Milpas Altas</option>";
+                    listMun.innerHTML += "<option value=\"Santa María de Jesús\">Santa María de Jesús</option>";
+                    listMun.innerHTML += "<option value=\" Ciudad Vieja\"> Ciudad Vieja</option>";
+                    listMun.innerHTML += "<option value=\"San Miguel Dueñas\">San Miguel Dueñas</option>";
+                    listMun.innerHTML += "<option value=\"San Juan Alotenango\">San Juan Alotenango</option>";
+                    listMun.innerHTML += "<option value=\"San Antonio Aguas Calientes\">San Antonio Aguas Calientes</option>";
+                    listMun.innerHTML += "<option value=\" Santa Catarina Barahona\"> Santa Catarina Barahona</option>";
+                    break;
+                case "Sololá":
+                    listMun.innerHTML += "<option value=\" Sololá\"> Sololá</option>";
+                    listMun.innerHTML += "<option value=\" Santiago Atitlán\"> Santiago Atitlán</option>";
+                    listMun.innerHTML += "<option value=\"Santa María Visitación\">Santa María Visitación</option>";
+                    listMun.innerHTML += "<option value=\"Santa Lucía Utatlán\">Santa Lucía Utatlán</option>";
+                    listMun.innerHTML += "<option value=\"Santa Cruz La Laguna\">Santa Cruz La Laguna</option>";
+                    listMun.innerHTML += "<option value=\"Santa Clara La Laguna\">Santa Clara La Laguna</option>";
+                    listMun.innerHTML += "<option value=\"Santa Catarina Palopó\">Santa Catarina Palopó</option>";
+                    listMun.innerHTML += "<option value=\"Santa Catarina Ixtahuacán\">Santa Catarina Ixtahuacán</option>";
+                    listMun.innerHTML += "<option value=\"San Pedro La Laguna\">San Pedro La Laguna</option>";
+                    listMun.innerHTML += "<option value=\"San Pablo La Laguna\">San Pablo La Laguna</option>";
+                    listMun.innerHTML += "<option value=\"San Marcos La Laguna\">San Marcos La Laguna</option>";
+                    listMun.innerHTML += "<option value=\"San Juan La Laguna\">San Juan La Laguna</option>";
+                    listMun.innerHTML += "<option value=\"San José Chacayá\">San José Chacayá</option>";
+                    listMun.innerHTML += "<option value=\" San Antonio Palopó\"> San Antonio Palopó</option>";
+                    listMun.innerHTML += "<option value=\"San Andrés Semetabaj\">San Andrés Semetabaj</option>";
+                    listMun.innerHTML += "<option value=\"Panajachel\">Panajachel</option>";
+                    listMun.innerHTML += "<option value=\"Nahualá\">Nahualá</option>";
+                    listMun.innerHTML += "<option value=\"Concepción\">Concepción</option>";
+                    break;
+
+                case "Santa Rosa":
+                    listMun.innerHTML += "<option value=\"Cuilapa\">Cuilapa</option>";
+                    listMun.innerHTML += "<option value=\"Casillas Santa Rosa\">Casillas Santa Rosa</option>";
+                    listMun.innerHTML += "<option value=\"Chiquimulilla\">Chiquimulilla</option>";
+                    listMun.innerHTML += "<option value=\"Guazacapán\">Guazacapán</option>";
+                    listMun.innerHTML += "<option value=\"Oratorio\">Oratorio</option>";
+                    listMun.innerHTML += "<option value=\"Pueblo Nuevo Viñas\">Pueblo Nuevo Viñas</option>";
+                    listMun.innerHTML += "<option value=\"San Juan Tecuaco\">San Juan Tecuaco</option>";
+                    listMun.innerHTML += "<option value=\"San Rafael Las Flores\">San Rafael Las Flores</option>";
+                    listMun.innerHTML += "<option value=\"Santa Cruz Naranjo\">Santa Cruz Naranjo</option>";
+                    listMun.innerHTML += "<option value=\"Santa María Ixhuatán\">Santa María Ixhuatán</option>";
+                    listMun.innerHTML += "<option value=\"Santa Rosa de Lima\">Santa Rosa de Lima</option>";
+                    listMun.innerHTML += "<option value=\"Taxisco\">Taxisco</option>";
+                    listMun.innerHTML += "<option value=\" Barberena\"> Barberena</option>";
+                    break;
+
+                case "San Marcos":
+                    listMun.innerHTML += "<option value=\"La Blanca\">La Blanca</option>";
+                    listMun.innerHTML += "<option value=\"Río Blanco\">Río Blanco</option>";
+                    listMun.innerHTML += "<option value=\"Tejutla\">Tejutla</option>";
+                    listMun.innerHTML += "<option value=\"Tajumulco\">Tajumulco</option>";
+                    listMun.innerHTML += "<option value=\"Tacaná\">Tacaná</option>";
+                    listMun.innerHTML += "<option value=\" Sipacapa\"> Sipacapa</option>";
+                    listMun.innerHTML += "<option value=\"Sibinal\">Sibinal</option>";
+                    listMun.innerHTML += "<option value=\"San Rafael Pie de la Cuesta\">San Rafael Pie de la Cuesta</option>";
+                    listMun.innerHTML += "<option value=\"San Pedro Sacatepéquez\">San Pedro Sacatepéquez</option>";
+                    listMun.innerHTML += "<option value=\"San Pablo\">San Pablo</option>";
+                    listMun.innerHTML += "<option value=\" San Lorenzo\"> San Lorenzo</option>";
+                    listMun.innerHTML += "<option value=\"San José Ojetenam\">San José Ojetenam</option>";
+                    listMun.innerHTML += "<option value=\"San Cristóbal Cucho\">San Cristóbal Cucho</option>";
+                    istMun.innerHTML += "<option value=\"San Antonio Sacatepéquez\">San Antonio Sacatepéquez</option>";
+                    listMun.innerHTML += "<option value=\"Esquipulas Palo Gordo\">Esquipulas Palo Gordo</option>";
+                    listMun.innerHTML += "<option value=\" Pajapita\"> Pajapita</option>";
+                    listMun.innerHTML += "<option value=\"Ocós\">Ocós</option>";
+                    listMun.innerHTML += "<option value=\"Nuevo Progreso\">Nuevo Progreso</option>";
+                    listMun.innerHTML += "<option value=\"San José Ojetenam\">San José Ojetenam</option>";
+                    listMun.innerHTML += "<option value=\" Malacatán\"> Malacatán</option>";
+                    listMun.innerHTML += "<option value=\"La Reforma\">La Reforma</option>";
+                    listMun.innerHTML += "<option value=\"Ixchiguán\">Ixchiguán</option>";
+                    listMun.innerHTML += "<option value=\"El Tumblador\">El Tumblador</option>";
+                    listMun.innerHTML += "<option value=\"El Rodeo\">El Rodeo</option>";
+                    listMun.innerHTML += "<option value=\"El Quetzal\">El Quetzal</option>";
+                    listMun.innerHTML += "<option value=\"Concepción Tutuapa\">Concepción Tutuapa</option>";
+                    listMun.innerHTML += "<option value=\"Comitancillo\"> Comitancillo</option>";
+                    listMun.innerHTML += "<option value=\" Ayutla\"> Ayutla</option>";
+                    listMun.innerHTML += "<option value=\"Catarina\"> Catarina</option>";
+                    break;
+                case "Totonicapán":
+                    listMun.innerHTML += "<option value=\"Totonicapán\">Totonicapán</option>";
+                    listMun.innerHTML += "<option value=\" San Cristóbal Totonicapán\"> San Cristóbal Totonicapán</option>";
+                    listMun.innerHTML += "<option value=\"San Francisco El Alto\">San Francisco El Alto</option>";
+                    listMun.innerHTML += "<option value=\"San Bartolo\">San Bartolo</option>";
+                    listMun.innerHTML += "<option value=\"Santa Lucía La Reforma\">Santa Lucía La Reforma</option>";
+                    listMun.innerHTML += "<option value=\" Momostenango\"> Momostenango</option>";
+                    listMun.innerHTML += "<option value=\"San Andrés Xecul\">San Andrés Xecul</option>";
+                    break;
+
+                case "Zacapa":
+                    listMun.innerHTML += "<option value=\"Zacapa\">Zacapa</option>";
+                    listMun.innerHTML += "<option value=\"Usumatlán\">Usumatlán</option>";
+                    listMun.innerHTML += "<option value=\" Teculután\"> Teculután</option>";
+                    listMun.innerHTML += "<option value=\"San Diego\">San Diego</option>";
+                    listMun.innerHTML += "<option value=\"San Jorge\">San Jorge</option>";
+                    listMun.innerHTML += "<option value=\"Río Hondo\">Río Hondo</option>";
+                    listMun.innerHTML += "<option value=\"La Unión\">La Unión</option>";
+                    listMun.innerHTML += "<option value=\"Cabañas\"> Cabañas</option>";
+                    listMun.innerHTML += "<option value=\"Estanzuela\">Estanzuela</option>";
+                    listMun.innerHTML += "<option value=\"Gualán\">Gualán</option>";
+                    listMun.innerHTML += "<option value=\"Huité\">Huité</option>";
+                    break;
+                default:
+
+                    break;
+            }
+        }
+    </script>
+}
+

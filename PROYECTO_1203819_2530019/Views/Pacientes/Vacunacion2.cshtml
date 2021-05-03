@@ -3,14 +3,19 @@
 @{
     ViewData["Title"] = "Vacunacion2";
 }
+<body>
+    <header class="registro">
 
-<h1>Vacunacion</h1>
+        <h1 style="color:darkblue">Vacunación de paciente</h1>
+
+    </header>
+</body>
 
 <p>
-    <a style="color: black" asp-action="Realizarinjeccion" class="btn btn-primary  btn-block" role="button">Realizar Vacunacion</a>
-    <a style="color: black" asp-action="RegesoRegistrar" class="btn btn-primary  btn-block" role="button">Continuar Registro de pacientes</a>
+    <a style="color: black" asp-action="Realizarinjeccion" class="btn btn-primary  btn-block" role="button">Realizar Vacunación</a>
+    <a style="color: black" asp-action="InfoHospital" class="btn btn-primary  btn-block" role="button">Regresar al centro de vacunación</a>
 </p>
-<table class="table">
+<table class="table table-success table-striped">
     <thead>
         <tr>
             <th>

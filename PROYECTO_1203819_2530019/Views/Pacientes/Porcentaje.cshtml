@@ -1,0 +1,41 @@
+﻿@model PROYECTO_1203819_2530019.Models.Porcentajes
+
+@{
+    ViewData["Title"] = "Porcentaje";
+}
+
+}
+<body>
+    <header class="registro">
+
+        <h1 style="color:darkblue">Porcentaje de Vacunación</h1>
+
+    </header>
+</body>
+
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vacunados)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vacunados)
+        </dd>
+        <dt class="col-sm-2">
+            Porcentaje de vacunados:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.porcentaje)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a style="color: black" asp-action="Index" asp-controller="Home" class="btn btn-danger btn-block" role="button">Regresar a Home</a>
+</div>

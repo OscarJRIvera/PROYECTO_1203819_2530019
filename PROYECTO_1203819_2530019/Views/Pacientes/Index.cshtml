@@ -4,26 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-<p>
-    Selecione la busqueda que desea
-</p>
-<form asp-controller="Pacientes" asp-action="Search">
+<body>
+    <header class="registro">
 
-    <select name="Filter">
-        <option value="" selected disabled hidden>Seleccione</option>
-        <option value="Nombre">Nombre</option>
-        <option value="Apellido">Apellido</option>
-        <option value="DPI">DPI/Partida de nacimiento</option>
-    </select>
-    <div class="input-group mb-3">
-        <input name="Param" type="text" class="form-control" placeholder="Escribir" aria-label="x" aria-describedby="basic-addon2">
-        <input type="submit" value="Buscar" class="btn btn-outline-dark">
-    </div>
-</form>
-<a style="color: black" asp-action="Registro" class="btn btn-primary  btn-block" role="button">Registrar otro cliente</a>
+        <h1 style="color:darkblue">Index de pacientes Registrados</h1>
+
+    </header>
+</body>
+<a style="color: black" asp-action="Registro" class="btn btn-primary  btn-block" role="button">Registrar otro Paciente</a>
 <a style="color: black" asp-action="Vacunacion" class="btn btn-secondary btn-block" role="button">Vacunacion</a>
-<table class="table">
+<a style="color: black" asp-action="InfoHospital" class="btn btn-primary  btn-block" role="button">Regresar al centro de vacunacion</a>
+
+<table class="table table-success table-striped">
     <thead>
         <tr>
             <th>
@@ -79,3 +71,4 @@
         }
     </tbody>
 </table>
+
