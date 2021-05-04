@@ -16,7 +16,8 @@ namespace PROYECTO_1203819_2530019.Data
 
         public DbSet<PROYECTO_1203819_2530019.Models.Paciente> Paciente { get; set; }
 
-        public DbSet<PROYECTO_1203819_2530019.Models.PacienteView> PacienteView { get; set; }
+        public DbSet<PROYECTO_1203819_2530019.Models.Porcentajes> Porcentajes { get; set; }
+
 
     }
 }

@@ -24,18 +24,42 @@ namespace PROYECTO_1203819_2530019.Controllers
         }
         public IActionResult Index()
         {
-            return View(F.ViewPaciente);
+            var ViewPaciente = new DoubleLinkedList<Paciente>();
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            Hospitales hospital = new Hospitales();
+            hospital = F.hospitales.Find(m => Comparador(m, F.municipio) == 0);
+            ArbolDePrioridad<LlaveArbolPrioridad> Temparbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            if (hospital.Registrar.isempty())
+            {
+                return View(ViewPaciente);
+            }
+            Temparbol = hospital.Registrar.Clone();
+            LlaveArbolPrioridad Tempprioridad;
+            do
+            {
+                Tempprioridad = new LlaveArbolPrioridad();
+                if (!Temparbol.isempty())
+                {
+                    Tempprioridad = Temparbol.Remove();
+                    if (Tempprioridad != null)
+                    {
+                        Paciente TempPaciente = new Paciente();
+                        TempPaciente = hospital.Pacientes.Find(Convert.ToString(Tempprioridad.CodigoHash));
+                        TempPaciente.Prioridad = Tempprioridad.Prioridad;
+                        ViewPaciente.Add(TempPaciente);
+                    }
+                }
+            } while (Tempprioridad.CodigoHash != 0);
+            return View(ViewPaciente);
         }
-        public delegate int PacienteComp(LlaveArbolNombre a, string b);
-        public delegate int PacienteComp2(LlaveArbolApellido a, string b);
-        public delegate int PacienteComp3(LlaveArbolNumeroDR a, string b);
+        public delegate int PacienteComp(Hospitales a, string b);
         public IActionResult Registro(int? Id)
         {
 
             return View();
         }
         [HttpPost]
-        public IActionResult Registro(int id, [Bind("Nombre,Apellido,DPI,Departamento,Municipio,Edad,Areadetrabajo,Salud,Est,Asilo")] Paciente DatosP, [Bind("Nombre,Apellido,DPI,Departamento,Municipio,Edad")] PacienteView Pv1)
+        public IActionResult Registro(int id, [Bind("Nombre,Apellido,DPI,Departamento,Municipio,Edad,Areadetrabajo,Salud,Est,Asilo")] Paciente DatosP)
         {
             var TempNombre = new LlaveArbolNombre();
             var TempDR = new LlaveArbolNumeroDR();
@@ -136,28 +160,23 @@ namespace PROYECTO_1203819_2530019.Controllers
                         break;
                 }
             }
-            F.Arbol_Prioridad.add(Temp);
-            F.Tabla_Hash.Add(Convert.ToString(DatosP.DPI), DatosP);
-            ///////////////////////////////////
-            ArbolDePrioridad<LlaveArbolPrioridad> Temparbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
-            Temparbol = F.Arbol_Prioridad.Clone();
-            LlaveArbolPrioridad Tempprioridad;
-            F.ViewPaciente = new DoubleLinkedList<Paciente>();
-            do
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            Hospitales hospital = new Hospitales();
+            hospital = F.hospitales.Find(m => Comparador(m, DatosP.Municipio) == 0);
+            if (hospital == null)
             {
-                Tempprioridad = new LlaveArbolPrioridad();
-                if (!Temparbol.isempty())
-                {
-                    Tempprioridad = Temparbol.Remove();
-                    if (Tempprioridad != null)
-                    {
-                        Paciente TempPaciente = new Paciente();
-                        TempPaciente = F.Tabla_Hash.Find(Convert.ToString(Tempprioridad.CodigoHash));
-                        TempPaciente.Prioridad = Tempprioridad.Prioridad;
-                        F.ViewPaciente.Add(TempPaciente);
-                    }
-                }
-            } while (Tempprioridad.CodigoHash != 0);
+                Hospitales Nuevohospital = new Hospitales();
+                Nuevohospital.Municipio = DatosP.Municipio;
+                F.hospitales.Add(Nuevohospital);
+                hospital = F.hospitales.Find(m => Comparador(m, DatosP.Municipio) == 0);
+            }
+            var arbolP = hospital.Registrar;
+            var tablah = hospital.Pacientes;
+            F.total++;
+            arbolP.add(Temp);
+            tablah.Add(Convert.ToString(DatosP.DPI), DatosP);
+            F.Tabla_Hash.Add(Convert.ToString(DatosP.DPI), DatosP);
+            F.municipio = DatosP.Municipio;
             return RedirectToAction("Index", "Pacientes");
         }
         public ActionResult Search(string Filter, string Param)
@@ -275,30 +294,41 @@ namespace PROYECTO_1203819_2530019.Controllers
         }
         public IActionResult Vacunacion()
         {
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            Hospitales hospital = new Hospitales();
+            hospital = F.hospitales.Find(m => Comparador(m, F.municipio) == 0);
             restablecerfechas();
-            if (!F.Arbol_Prioridad.isempty())
+            if (!hospital.Registrar.isempty())
             {
-                F.ArbolVacunar = F.Arbol_Prioridad.Clone();
-                F.Arbol_Prioridad.Empty();
+                hospital.Espera = hospital.Registrar.Clone();
+                hospital.Registrar.Empty();
+            }
+            else
+            {
+                return RedirectToAction("ErrorVacunacion");
             }
             return RedirectToAction("Vacunacion2");
         }
         public IActionResult Vacunacion2()
         {
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            Hospitales hospital = new Hospitales();
+            hospital = F.hospitales.Find(m => Comparador(m, F.municipio) == 0);
+
             restablecerfechas2();
             DoubleLinkedList<Paciente> TempView = new DoubleLinkedList<Paciente>();
             ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
-            if (F.ArbolVacunar.isempty())
+            if (hospital.Espera.isempty())
             {
                 return View(TempView);
             }
-            TempArbol = F.ArbolVacunar.Clone();
+            TempArbol = hospital.Espera.Clone();
             do
             {
                 LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
                 Temp = TempArbol.Remove();
                 Paciente ViewVacunar = new Paciente();
-                ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
+                ViewVacunar = hospital.Pacientes.Find(Convert.ToString(Temp.CodigoHash));
                 TempView.Add(ViewVacunar);
             } while (!TempArbol.isempty());
             return View(TempView);
@@ -316,12 +346,19 @@ namespace PROYECTO_1203819_2530019.Controllers
         }
         public void restablecerfechas()
         {
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            var hospital = F.hospitales.Find(m => Comparador(m, F.municipio) == 0);
+
             ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
-            F.TempFecha = new DateTime();
-            F.TempFecha = DateTime.Today;
-            TempArbol = F.Arbol_Prioridad.Clone();
-            F.TempFecha = F.TempFecha.AddDays(7);
-            F.TempFecha = F.TempFecha.AddHours(8);
+            hospital.TempFecha = new DateTime();
+            hospital.TempFecha = DateTime.Today;
+            if (hospital.Registrar.isempty())
+            {
+                return;
+            }
+            TempArbol = hospital.Registrar.Clone();
+            hospital.TempFecha = hospital.TempFecha.AddDays(7);
+            hospital.TempFecha = hospital.TempFecha.AddHours(8);
             while (!TempArbol.isempty())
             {
                 for (int i = 0; i < F.CantidadPasar; i++)
@@ -331,32 +368,35 @@ namespace PROYECTO_1203819_2530019.Controllers
                         LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
                         Temp = TempArbol.Remove();
                         Paciente ViewVacunar = new Paciente();
-                        ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
-                        F.Tabla_Hash.Remove(Convert.ToString(Temp.CodigoHash));
-                        ViewVacunar.Fecha = F.TempFecha;
-                        F.Tabla_Hash.Add(Convert.ToString(ViewVacunar.DPI), ViewVacunar);
+                        ViewVacunar = hospital.Pacientes.Find(Convert.ToString(Temp.CodigoHash));
+                        hospital.Pacientes.Remove(Convert.ToString(Temp.CodigoHash));
+                        ViewVacunar.Fecha = hospital.TempFecha;
+                        hospital.Pacientes.Add(Convert.ToString(ViewVacunar.DPI), ViewVacunar);
                     }
                 }
-                F.TempFecha = F.TempFecha.AddMinutes(15);
+                hospital.TempFecha = hospital.TempFecha.AddMinutes(15);
             }
         }
         public void restablecerfechas2()
         {
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            var hospital = F.hospitales.Find(m => Comparador(m, F.municipio) == 0);
+
             ArbolDePrioridad<LlaveArbolPrioridad> TempArbolvacuna = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
-            if (!F.ArbolVacunar.isempty())
+            if (!hospital.Espera.isempty())
             {
-                TempArbolvacuna = F.ArbolVacunar.Clone();
+                TempArbolvacuna = hospital.Espera.Clone();
                 LlaveArbolPrioridad TempF = new LlaveArbolPrioridad();
                 TempF = TempArbolvacuna.Remove();
                 Paciente Nuevo = new Paciente();
-                Nuevo = F.Tabla_Hash.Find(Convert.ToString(TempF.CodigoHash));
+                Nuevo = hospital.Pacientes.Find(Convert.ToString(TempF.CodigoHash));
                 if (TempF.Prioridad > 4.1)
                 {
-                    F.TempFecha = Nuevo.Fecha.AddMinutes(15);
+                    hospital.TempFecha = Nuevo.Fecha.AddMinutes(15);
                 }
                 else
                 {
-                    F.TempFecha = Nuevo.Fecha;
+                    hospital.TempFecha = Nuevo.Fecha;
                 }
 
             }
@@ -365,7 +405,7 @@ namespace PROYECTO_1203819_2530019.Controllers
                 return;
             }
             ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
-            TempArbol = F.ArbolVacunar.Clone();
+            TempArbol = hospital.Espera.Clone();
             while (!TempArbol.isempty())
             {
                 for (int i = 0; i < F.CantidadPasar; i++)
@@ -375,23 +415,27 @@ namespace PROYECTO_1203819_2530019.Controllers
                         LlaveArbolPrioridad Temp = new LlaveArbolPrioridad();
                         Temp = TempArbol.Remove();
                         Paciente ViewVacunar = new Paciente();
-                        ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Temp.CodigoHash));
-                        F.Tabla_Hash.Remove(Convert.ToString(Temp.CodigoHash));
-                        ViewVacunar.Fecha = F.TempFecha;
-                        F.Tabla_Hash.Add(Convert.ToString(ViewVacunar.DPI), ViewVacunar);
+                        ViewVacunar = hospital.Pacientes.Find(Convert.ToString(Temp.CodigoHash));
+                        hospital.Pacientes.Remove(Convert.ToString(Temp.CodigoHash));
+                        ViewVacunar.Fecha = hospital.TempFecha;
+                        hospital.Pacientes.Add(Convert.ToString(ViewVacunar.DPI), ViewVacunar);
                     }
                 }
-                F.TempFecha = F.TempFecha.AddMinutes(15);
+                hospital.TempFecha = hospital.TempFecha.AddMinutes(15);
             }
         }
         public IActionResult Realizarinjeccion()
         {
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            Hospitales hospital = new Hospitales();
+            hospital = F.hospitales.Find(m => Comparador(m, F.municipio) == 0);
+
             ArbolDePrioridad<LlaveArbolPrioridad> TempArbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
-            if (F.ArbolVacunar.isempty())
+            if (hospital.Espera.isempty())
             {
                 return RedirectToAction("Vacunacion2");
             }
-            TempArbol = F.ArbolVacunar.Clone();
+            TempArbol = hospital.Espera.Clone();
             DoubleLinkedList<Paciente> ViewVacunacion = new DoubleLinkedList<Paciente>();
             for (int i = 0; i < F.CantidadPasar; i++)
             {
@@ -400,7 +444,7 @@ namespace PROYECTO_1203819_2530019.Controllers
                     LlaveArbolPrioridad Templlave = new LlaveArbolPrioridad();
                     Templlave = TempArbol.Remove();
                     Paciente ViewVacunar = new Paciente();
-                    ViewVacunar = F.Tabla_Hash.Find(Convert.ToString(Templlave.CodigoHash));
+                    ViewVacunar = hospital.Pacientes.Find(Convert.ToString(Templlave.CodigoHash));
                     ViewVacunacion.Add(ViewVacunar);
                 }
             }
@@ -408,27 +452,33 @@ namespace PROYECTO_1203819_2530019.Controllers
         }
         public IActionResult Realizarinjeccion2()
         {
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            var hospital = F.hospitales.Find(m => Comparador(m, F.municipio) == 0);
+
             DoubleLinkedList<Paciente> ViewEspera = new DoubleLinkedList<Paciente>();
             ArbolDePrioridad<LlaveArbolPrioridad> PacienteNollego = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
             for (int i = 0; i < F.CantidadPasar; i++)
             {
-                if (!F.ArbolVacunar.isempty())
+                if (!hospital.Espera.isempty())
                 {
                     LlaveArbolPrioridad Templlave = new LlaveArbolPrioridad();
-                    Templlave = F.ArbolVacunar.Remove();
+                    Templlave = hospital.Espera.Remove();
                     Paciente Temppaciente = new Paciente();
-                    Temppaciente = F.Tabla_Hash.Find(Convert.ToString(Templlave.CodigoHash));
-                    F.Tabla_Hash.Remove(Convert.ToString(Templlave.CodigoHash));
+                    Temppaciente = hospital.Pacientes.Find(Convert.ToString(Templlave.CodigoHash));
+                    hospital.Pacientes.Remove(Convert.ToString(Templlave.CodigoHash));
                     if (CalcSiLlego())
                     {
                         Temppaciente.Paciente_Llego = true;
+                        hospital.vacunados.add(Templlave);
+                        hospital.PacientesVacunados.Add(Convert.ToString(Templlave.CodigoHash), Temppaciente);
+                        F.vacunados++;
                     }
                     else
                     {
                         Temppaciente.Paciente_Llego = false;
                         Templlave.Prioridad = Templlave.Prioridad + 4.1;
                         Temppaciente.Prioridad = Templlave.Prioridad + 4.1;
-                        F.Tabla_Hash.Add(Convert.ToString(Templlave.CodigoHash), Temppaciente);
+                        hospital.Pacientes.Add(Convert.ToString(Templlave.CodigoHash), Temppaciente);
                         PacienteNollego.add(Templlave);
                     }
                     ViewEspera.Add(Temppaciente);
@@ -436,26 +486,114 @@ namespace PROYECTO_1203819_2530019.Controllers
             }
             while (!PacienteNollego.isempty())
             {
-                F.ArbolVacunar.add(PacienteNollego.Remove());
+                hospital.Espera.add(PacienteNollego.Remove());
             }
             return View(ViewEspera);
         }
-        public IActionResult RegesoRegistrar()
-        {
-            if (!F.ArbolVacunar.isempty())
-            {
-                return RedirectToAction("Vacunacion2");
-            }
-            F.ViewPaciente = new DoubleLinkedList<Paciente>();
-            return RedirectToAction("Index");
-        }
         public IActionResult Buscar()
         {
+            DoubleLinkedList<Paciente> vista = new DoubleLinkedList<Paciente>();
+            for (int i = 1; i <= F.hospitales.Count2(); i++)
+            {
+                Hospitales Temphospital = new Hospitales();
+                Temphospital = F.hospitales.GetbyIndex(i);
+                var Temparbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
 
+                if (!Temphospital.Registrar.isempty())
+                {
+                    Temparbol = Temphospital.Registrar.Clone();
+                    while (!Temparbol.isempty())
+                    {
+                        var templlave = new LlaveArbolPrioridad();
+                        templlave = Temparbol.Remove();
+                        vista.Add(Temphospital.Pacientes.Find(Convert.ToString(templlave.CodigoHash)));
+                    }
+                }
+                if (!Temphospital.vacunados.isempty())
+                {
+                    Temparbol = Temphospital.vacunados.Clone();
+                    while (!Temparbol.isempty())
+                    {
+                        var templlave = new LlaveArbolPrioridad();
+                        templlave = Temparbol.Remove();
+                        vista.Add(Temphospital.PacientesVacunados.Find(Convert.ToString(templlave.CodigoHash)));
+                    }
+                }
+            }
+            return View(vista);
+        }
+        public IActionResult Hospital()
+        {
             return View();
         }
+        public IActionResult ViewHospital()
+        {
+            return View();
+        }
+        public IActionResult InfoHospital([Bind("Departamento,Municipio")] Paciente DatosP)
+        {
+            if (DatosP.Departamento != null)
+            {
+                F.municipio = DatosP.Municipio;
+            }
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            Hospitales hospital = new Hospitales();
+            hospital = F.hospitales.Find(m => Comparador(m, F.municipio) == 0);
+            if (hospital == null)
+            {
+                hospital = new Hospitales();
+                hospital.Municipio = F.municipio;
+                F.hospitales.Add(hospital);
+            }
+            return View();
+        }
+        public IActionResult ListaVacunados()
+        {
+            PacienteComp Comparador = Hospitales.Compare_Municipio;
+            Hospitales hospital = new Hospitales();
+            hospital = F.hospitales.Find(m => Comparador(m, F.municipio) == 0);
+            var TempViewPaciente = new DoubleLinkedList<Paciente>();
+
+            var Temparbol = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+            if (!hospital.vacunados.isempty())
+            {
+                Temparbol = hospital.vacunados.Clone();
+                while (!Temparbol.isempty())
+                {
+                    var Templlave = new LlaveArbolPrioridad();
+                    Templlave = Temparbol.Remove();
+                    var Temppaciente = new Paciente();
+                    Temppaciente = hospital.PacientesVacunados.Find(Convert.ToString(Templlave.CodigoHash));
+                    TempViewPaciente.Add(Temppaciente);
+                }
+            }
 
 
+            return View(TempViewPaciente);
+        }
+        public IActionResult ErrorVacunacion()
+        {
+            return View();
+        }
+        public IActionResult CambiarMaximimo([Bind("maximo")] MaximoPasar Tempmaximo)
+        {
+            F.CantidadPasar = Tempmaximo.maximo;
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult Porcentaje()
+        {
+            Porcentajes Temp = new Porcentajes();
+            Temp.Total = F.total;
+            Temp.Vacunados = F.vacunados;
+            if (F.total == 0)
+            {
+                Temp.porcentaje = "0%";
+                return View(Temp);
+            }
+            int porcentaje = ((F.vacunados / F.total) * 100);
+            Temp.porcentaje = porcentaje + "%";
+            return View(Temp);
+        }
     }
 }
 

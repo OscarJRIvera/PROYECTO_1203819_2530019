@@ -1,8 +1,27 @@
-﻿@{
+﻿@model PROYECTO_1203819_2530019.Models.MaximoPasar
+@{
     ViewData["Title"] = "Home Page";
 }
+<body>
+    <section class="fondo">
+        <a style="position:absolute;top:30%;left:35%" asp-controller="Pacientes" asp-action="Registro" class="btn btn-primary" role="button">Registro Paciente</a>
+        <a style="position:absolute;top:43%;left:35%" asp-controller="Pacientes" asp-action="Buscar" class="btn btn-primary" role="button">Busqueda Paciente</a>
+        <a style="position:absolute;top:55%;left:35%" asp-controller="Pacientes" asp-action="Porcentaje" class="btn btn-primary" role="button">Ver Estadisticas</a>
+        <a style="position:absolute;top:70%;left:35%" asp-controller="Pacientes" asp-action="Hospital" class="btn btn-primary" role="button">Hospitales</a>
+    </section>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+</body>
+<form asp-action="CambiarMaximimo" asp-controller="Pacientes">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="input-group mb-3">
+        <label style="color:darkblue" asp-for="maximo" Value:"Maximo de pacientes a vacunar" class="control-label"></label>
+        <div style="text-align :center;">
+            <input asp-for="maximo" type="text" class="form-control" placeholder="Cantidad maxima de pacientes a Vacunar" aria-label="x" aria-describedby="basic-addon2" required>
+        </div>
+        <span asp-validation-for="maximo" class="text-danger"></span>
+        <div class="form-group">
+            <input type="submit" value="Ingresar Datos" class="btn btn-primary" />
+        </div>
+    </div>
+    
+</form>

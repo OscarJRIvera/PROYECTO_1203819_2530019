@@ -12,9 +12,17 @@ namespace PROYECTO_1203819_2530019.Models
     {
         public int Id { get; set; }
         public string Municipio { get; set; }
+        public DateTime TempFecha = new DateTime();
 
-        public ArbolDePrioridad<LlaveArbolPrioridad> prioridad = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
-        
+        public ArbolDePrioridad<LlaveArbolPrioridad> Registrar = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+        public ArbolDePrioridad<LlaveArbolPrioridad> vacunados = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
+        public ArbolDePrioridad<LlaveArbolPrioridad> Espera = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
         public TablaHash<string, Paciente> Pacientes = new TablaHash<string, Paciente>(20, Paciente.Compare_DPI);
+        public TablaHash<string, Paciente> PacientesVacunados = new TablaHash<string, Paciente>(20, Paciente.Compare_DPI);
+        public static int Compare_Municipio(Hospitales x, string y)
+        {
+            int r = x.Municipio.CompareTo(y);
+            return r;
+        }
     }
 }
