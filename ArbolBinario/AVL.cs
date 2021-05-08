@@ -18,20 +18,30 @@ namespace ArbolBinario
         {
             this.root = a.root.Clone();
             this.comparador = a.comparador;
-            this.comparador2 = a.comparador2;
         }
-        public AVL(Comparador<T> Funcomparador, Comparador2<T> Funcomparador2) //Esta es la funcion
+        public AVL(Comparador<T> Funcomparador) //Esta es la funcion
         {
-            this.comparador = Funcomparador;
-            this.comparador2 = Funcomparador2; // el apuntador de la linea 12 que apunte a la funcion. 
+            this.comparador = Funcomparador;// el apuntador de la linea 12 que apunte a la funcion. 
         }
         internal Nodo<T> root;
-        internal Comparador<T> comparador;
-        internal Comparador2<T> comparador2;//una de las propiedades del arbol es el comparador
+        internal Comparador<T> comparador;//una de las propiedades del arbol es el comparador
         public void Empty()
         {
             root = null;
         }
+        public bool isempty()
+        {
+            if (root == null)
+            {
+                return true;
+            }
+            else if (root.Value == null)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         public void Add(T dato)
         {
@@ -69,8 +79,7 @@ namespace ArbolBinario
             }
             Balanceo();
         }
-        public delegate int Comparador<T>(T a, T b);
-        public delegate int Comparador2<T>(T a, T b);//El tipo del Apuntador del delegado
+        public delegate int Comparador<T>(T a, T b);//El tipo del Apuntador del delegado
         private void Add(T dato, Nodo<T> CurrentRoot)
         {
             if (comparador.Invoke(CurrentRoot.Value, dato) > 0) //si es currentroot es mayor que el dato 
@@ -109,7 +118,6 @@ namespace ArbolBinario
         }
         private void RemoveAt(T dato, Nodo<T> currentRoot, Nodo<T> padre)
         {
-            int p = 0;
             if (currentRoot is null) throw new Exception("No encontrado");
             var comparacion = comparador.Invoke(currentRoot.Value, dato);
             if (comparacion == 0)//ya encontro el que quiere borrar
@@ -212,7 +220,7 @@ namespace ArbolBinario
                         {
                             root = currentRoot.Left;
                         }
-                        if (padre.Left != null && padre.Right != null)
+                        else if (padre.Left != null && padre.Right != null)
                         {
                             if (comparador(padre.Left.Value, dato) == 0)//si es el de la izquierda el que quiere borrar
                                 padre.Left = currentRoot.Left;
@@ -236,7 +244,7 @@ namespace ArbolBinario
                         {
                             root = currentRoot.Right;
                         }
-                        if (padre.Left != null && padre.Right != null)
+                        else if (padre.Left != null && padre.Right != null)
                         {
                             if (comparador(padre.Left.Value, dato) == 0)//si es el de la izquierda el que quiere borrar
                                 padre.Left = currentRoot.Right;
@@ -289,31 +297,6 @@ namespace ArbolBinario
             }
             return padre;
         }
-
-        private Nodo<T> UbicarNodo(T buscador, Nodo<T> currentRoot)
-        {
-            if (currentRoot is null) return null;
-            var comparacion = comparador.Invoke(currentRoot.Value, buscador);
-            if (comparacion == 0) return currentRoot;
-            if (comparacion > 0) return UbicarNodo(buscador, currentRoot.Left);
-            return UbicarNodo(buscador, currentRoot.Right);
-        }
-
-        public List<T> ConvertirLista()
-        {
-            var list = new List<T>();
-            ConvertirLista(list, root);
-            return list;
-        }
-        private void ConvertirLista(List<T> lista, Nodo<T> CurrentRoot)
-        {
-            if (CurrentRoot != null)
-            {
-                ConvertirLista(lista, CurrentRoot.Left);
-                lista.Add(CurrentRoot.Value);
-                ConvertirLista(lista, CurrentRoot.Right);
-            }
-        }
         public T Find(T buscador)
         {
             return Find(buscador, root);
@@ -322,22 +305,15 @@ namespace ArbolBinario
         {
             if (currentRoot is null) return default(T);
             var comparacion = comparador.Invoke(currentRoot.Value, buscador);
+            if (comparacion == 3) return default(T);
             if (comparacion == 0) return currentRoot.Value;
             if (comparacion > 0) return Find(buscador, currentRoot.Left);
             return Find(buscador, currentRoot.Right);
+
         }
-        public T Find2(T buscador)
-        {
-            return Find2(buscador, root);
-        }
-        private T Find2(T buscador, Nodo<T> currentRoot)
-        {
-            if (currentRoot is null) return default(T);
-            var comparacion = comparador2.Invoke(currentRoot.Value, buscador);
-            if (comparacion == 0) return currentRoot.Value;
-            if (comparacion > 0) return Find2(buscador, currentRoot.Left);
-            return Find2(buscador, currentRoot.Right);
-        }
+
+
+
         public int Altura(Nodo<T> nodo)
         {
             if (nodo.EsHoja) return 1;

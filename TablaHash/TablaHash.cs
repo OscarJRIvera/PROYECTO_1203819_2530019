@@ -37,7 +37,7 @@ namespace TablaHash
             return Convert.ToInt32(x) % largoTabla;
         }
         DoubleLinkedList<LlaveValor<V>> Diccionario;
-        public TablaHash(int count, Comparador<V> Funcomparador) 
+        public TablaHash(int count, Comparador<V> Funcomparador)
         {
 
             this.comparador = Funcomparador;
@@ -61,7 +61,7 @@ namespace TablaHash
         {
             var hash = funcionHash(llave);
             var llaveValor = Diccionario.Find(p => p.Llave.Equals(hash));
-            int posicion = llaveValor.Valor.Find2(m => comparador(m,Convert.ToInt64(llave)) == 0);
+            int posicion = llaveValor.Valor.Find2(m => comparador(m, Convert.ToInt64(llave)) == 0);
             llaveValor.Valor.RemoveAt(posicion);
 
         }
