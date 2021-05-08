@@ -766,6 +766,33 @@ namespace PROYECTO_1203819_2530019.Controllers
                         Templlave.CodigoHash = Convert.ToInt64(Temp.DPI);
                         Templlave.Prioridad = Convert.ToDouble(Temp.Prioridad);
                         Temparbol.add(Templlave);
+                        F.Tabla_Hash.Add(Convert.ToString(Temp.DPI), Temp);
+                        //Arboles de busqueda
+                        var TempNombre = new LlaveArbolNombre();
+                        var TempDR = new LlaveArbolNumeroDR();
+                        var TempApellido = new LlaveArbolApellido();
+                        TempDR.CodigoHash = Temp.DPI;
+                        TempDR.NumeroDR = Temp.DPI;
+                        F.Arbol_NumeroDR.Add(TempDR);
+
+                        TempNombre.Nombre = Temp.Nombre;
+                        TempNombre = F.Arbol_Nombre.Find(TempNombre);
+                        TempApellido.Apellido = Temp.Apellido;
+                        TempApellido = F.Arbol_Apellido.Find(TempApellido);
+                        if (TempNombre == null)
+                        {
+                            TempNombre = new LlaveArbolNombre();
+                            TempNombre.CodigoHash = Temp.DPI;
+                            TempNombre.Nombre = Temp.Nombre;
+                            F.Arbol_Nombre.Add(TempNombre);
+                        }
+                        if (TempApellido == null)
+                        {
+                            TempApellido = new LlaveArbolApellido();
+                            TempApellido.CodigoHash = Temp.DPI;
+                            TempApellido.Apellido = Temp.Apellido;
+                            F.Arbol_Apellido.Add(TempApellido);
+                        }
 
                     }
                     else if (Escrito[0 + espacio] == "U")
@@ -798,34 +825,35 @@ namespace PROYECTO_1203819_2530019.Controllers
                             var temparbol = Temphospital.Espera;
                             temparbol.add(Templlave);
                         }
-                    }
-                    F.Tabla_Hash.Add(Convert.ToString(Temp.DPI), Temp);
-                    //Arboles de busqueda
-                    var TempNombre = new LlaveArbolNombre();
-                    var TempDR = new LlaveArbolNumeroDR();
-                    var TempApellido = new LlaveArbolApellido();
-                    TempDR.CodigoHash = Temp.DPI;
-                    TempDR.NumeroDR = Temp.DPI;
-                    F.Arbol_NumeroDR.Add(TempDR);
+                        F.Tabla_Hash.Add(Convert.ToString(Temp.DPI), Temp);
+                        //Arboles de busqueda
+                        var TempNombre = new LlaveArbolNombre();
+                        var TempDR = new LlaveArbolNumeroDR();
+                        var TempApellido = new LlaveArbolApellido();
+                        TempDR.CodigoHash = Temp.DPI;
+                        TempDR.NumeroDR = Temp.DPI;
+                        F.Arbol_NumeroDR.Add(TempDR);
 
-                    TempNombre.Nombre = Temp.Nombre;
-                    TempNombre = F.Arbol_Nombre.Find(TempNombre);
-                    TempApellido.Apellido = Temp.Apellido;
-                    TempApellido = F.Arbol_Apellido.Find(TempApellido);
-                    if (TempNombre == null)
-                    {
-                        TempNombre = new LlaveArbolNombre();
-                        TempNombre.CodigoHash = Temp.DPI;
                         TempNombre.Nombre = Temp.Nombre;
-                        F.Arbol_Nombre.Add(TempNombre);
-                    }
-                    if (TempApellido == null)
-                    {
-                        TempApellido = new LlaveArbolApellido();
-                        TempApellido.CodigoHash = Temp.DPI;
+                        TempNombre = F.Arbol_Nombre.Find(TempNombre);
                         TempApellido.Apellido = Temp.Apellido;
-                        F.Arbol_Apellido.Add(TempApellido);
+                        TempApellido = F.Arbol_Apellido.Find(TempApellido);
+                        if (TempNombre == null)
+                        {
+                            TempNombre = new LlaveArbolNombre();
+                            TempNombre.CodigoHash = Temp.DPI;
+                            TempNombre.Nombre = Temp.Nombre;
+                            F.Arbol_Nombre.Add(TempNombre);
+                        }
+                        if (TempApellido == null)
+                        {
+                            TempApellido = new LlaveArbolApellido();
+                            TempApellido.CodigoHash = Temp.DPI;
+                            TempApellido.Apellido = Temp.Apellido;
+                            F.Arbol_Apellido.Add(TempApellido);
+                        }
                     }
+                    
 
                 }
                 Datos.Close();
