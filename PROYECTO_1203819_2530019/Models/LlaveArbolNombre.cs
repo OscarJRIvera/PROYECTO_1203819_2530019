@@ -16,6 +16,10 @@ namespace PROYECTO_1203819_2530019.Models
         }
         public static int Compare_Llave_Arbol2(LlaveArbolNombre x, LlaveArbolNombre y)
         {
+            if (x.Nombre == null)
+            {
+                return 3;
+            }
             int r = x.Nombre.CompareTo(y.Nombre);
             return r;
         }

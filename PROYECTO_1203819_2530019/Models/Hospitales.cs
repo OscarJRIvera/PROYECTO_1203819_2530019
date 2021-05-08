@@ -13,6 +13,7 @@ namespace PROYECTO_1203819_2530019.Models
         public int Id { get; set; }
         public string Municipio { get; set; }
         public DateTime TempFecha = new DateTime();
+        public int CantidadPasar = 3;
 
         public ArbolDePrioridad<LlaveArbolPrioridad> Registrar = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);
         public ArbolDePrioridad<LlaveArbolPrioridad> vacunados = new ArbolDePrioridad<LlaveArbolPrioridad>(LlaveArbolPrioridad.Compare_Llave_Arbol);

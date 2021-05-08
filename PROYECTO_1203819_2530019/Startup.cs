@@ -25,6 +25,9 @@ namespace PROYECTO_1203819_2530019
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+            });
             services.AddControllersWithViews();
 
             services.AddDbContext<PROYECTO_1203819_2530019Context>(options =>
@@ -46,10 +49,10 @@ namespace PROYECTO_1203819_2530019
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
-
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

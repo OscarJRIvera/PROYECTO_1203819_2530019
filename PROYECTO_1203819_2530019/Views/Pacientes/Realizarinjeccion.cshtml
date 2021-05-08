@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<PROYECTO_1203819_2530019.Models.Paciente>
 
-@{
-    ViewData["Title"] = "Realizarinjeccion";
-}
+@{ ViewData["Title"] = "Realizarinjeccion"; }
 <body>
     <header class="registro">
 
@@ -45,29 +43,29 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Apellido)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DPI)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Departamento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Municipio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Edad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-            </tr>
-        }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Nombre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Apellido)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DPI)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Departamento)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Municipio)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Edad)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Fecha)
+    </td>
+</tr>}
     </tbody>
 </table>
+        

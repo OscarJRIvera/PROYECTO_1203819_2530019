@@ -1,23 +1,21 @@
 ﻿@model IEnumerable<PROYECTO_1203819_2530019.Models.Paciente>
 
-@{
-    ViewData["Title"] = "Buscar";
-}
+@{ ViewData["Title"] = "Buscar"; }
 <body>
     <header class="registro">
-        
+
         <h1 style="color:darkblue">Búsqueda de pacientes Registrados</h1>
-        
+
     </header>
 </body>
 
 
 <p>
-    
+    Ingrese el valor de busqueda exacto y sin espacios :)
 </p>
 <form asp-controller="Pacientes" asp-action="Search">
 
-    <select name="Filter">
+    <select name="Filter" required>
         <option value="" selected disabled hidden>Seleccione</option>
         <option value="Nombre">Nombre</option>
         <option value="Apellido">Apellido</option>
@@ -53,36 +51,36 @@
             <th>
                 Paciente vacunado
             </th>
-            
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DPI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Departamento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Municipio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Paciente_Llego)
-            </td>
-            
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Nombre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Apellido)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DPI)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Departamento)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Municipio)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Edad)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Paciente_Llego)
+    </td>
+
+</tr>}
     </tbody>
 </table>
